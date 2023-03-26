@@ -4,6 +4,7 @@ package com.hms.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,12 +35,16 @@ public class RegistrationController {
 	}
 
 	@PostMapping("/register")
-	public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, HttpServletRequest request,
+	public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result, HttpServletRequest request,
 			Errors errors) {
 
 		ModelAndView mav = new ModelAndView();
 		
 		System.out.println("In Register postMapping"+userDto.toString());
+		
+		if (result.hasErrors()) {
+		    return "register";
+		  }
 
 		try {
 			User registered = userService.registerNewUserAccount(userDto);

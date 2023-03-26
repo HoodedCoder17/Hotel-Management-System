@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
     }
     
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException  {
 		User user = userRepository.findByUserName(userName);
         if (user == null) {
             throw new UsernameNotFoundException("No user found with username: " + userName);
@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
         boolean accountNonExpired = user.getIsActive();
         boolean credentialsNonExpired = user.getIsActive();
         boolean accountNonLocked = user.getIsActive();
-        //user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         
         return new org.springframework.security.core.userdetails.User(
           user.getUserName(), user.getPassword(), enabled, accountNonExpired,
