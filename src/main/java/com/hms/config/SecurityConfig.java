@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
+import com.hms.exceptions.MyAuthenticationFailureHandler;
 import com.hms.services.UserService;
 import com.hms.services.UserServiceImpl;
 
@@ -51,15 +52,16 @@ public class SecurityConfig extends WebSecurityConfiguration {
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(
-				(athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/js/**", "/css/**", "/img/**")
-						.permitAll().requestMatchers("/home")
-						.authenticated().requestMatchers("/rooms").hasAnyAuthority("ADMIN","USER")/*.requestMatchers("/**").hasAuthority("USER") */)
-				 .httpBasic().disable().formLogin().loginPage("/signin").loginProcessingUrl("/process-signin")
-				.defaultSuccessUrl("/home").failureUrl("/signinFailure").permitAll().and()
+		http.authorizeHttpRequests((athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/about/**",
+				"/js/**", "/css/**", "/img/**", "/resources/**").permitAll()
+				.requestMatchers("/home").authenticated()
+				/* .requestMatchers("/rooms").hasAnyAuthority("ADMIN","USER") *//*
+				* .requestMatchers("/**").hasAuthority("USER")
+				*/).httpBasic().disable().formLogin()
+				.loginPage("/signin").loginProcessingUrl("/process-signin").defaultSuccessUrl("/home").permitAll()
+				.failureHandler(new MyAuthenticationFailureHandler()).and()
 
-				.authenticationManager(authManager(http))
-		 .csrf().disable() ;
+				.authenticationManager(authManager(http)).csrf().disable();
 		System.out.println("In security config");
 		return http.build();
 	}

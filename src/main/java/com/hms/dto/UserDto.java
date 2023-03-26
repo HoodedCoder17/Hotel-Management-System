@@ -4,50 +4,46 @@ import java.time.LocalDate;
 
 import com.hms.customAnnotations.PasswordMatches;
 import com.hms.customAnnotations.ValidEmail;
-import com.hms.entities.Role;
+import com.hms.customAnnotations.ValidPassword;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-@PasswordMatches
+@PasswordMatches(message = "Passwords do not match!")
 public class UserDto {
-	
-	@NotNull
-    @NotEmpty
-    private String userName;
-	
-	@NotNull
-    @NotEmpty
-    private String firstName;
-    
-    @NotNull
-    @NotEmpty
-    private String lastName;
-    
-    @NotNull
-    @NotEmpty
-    private String password;
-    
-    private String matchingPassword;
-    
-    @ValidEmail
-    @NotNull
-    @NotEmpty
-    private String email;
-    
-    @NotNull
-    private String role;
-    
-    @NotNull
-    private LocalDate dateOfBirth;
+
+	@NotEmpty(message = "User Name field cannot be empty!")
+	private String userName;
+
+	@NotEmpty(message = "First Name field cannot be empty!")
+	private String firstName;
+
+	@NotEmpty(message = "Last Name field cannot be empty!")
+	private String lastName;
+
+	@NotEmpty(message = "Password cannot be empty!")
+	@ValidPassword(message="Password can only contain alphabets(atleast 4, with atleast 1 of lower and upper case), atleast 1 each numeral and special characters like ,@#$!*")
+	private String password;
+
+	private String matchingPassword;
+
+	@ValidEmail(message = "Please enter a valid mail id!")
+	@NotEmpty(message = "Email Id cannot be empty!")
+	private String email;
+
+	@NotNull(message = "A Role have to be selected!")
+	private String role;
+
+	@NotNull(message = "Date of Birth has to be provided!")
+	private LocalDate dateOfBirth;
 
 	public UserDto() {
 		super();
 	}
 
-	public UserDto(@NotNull @NotEmpty String userName, @NotNull @NotEmpty String firstName,
-			@NotNull @NotEmpty String lastName, @NotNull @NotEmpty String password, String matchingPassword,
-			@NotNull @NotEmpty String email, @NotNull String role, @NotNull LocalDate dateOfBirth) {
+	public UserDto(@NotEmpty String userName, @NotEmpty String firstName, @NotEmpty String lastName,
+			@NotEmpty String password, String matchingPassword, @NotEmpty String email, @NotNull String role,
+			@NotNull LocalDate dateOfBirth) {
 		super();
 		this.userName = userName;
 		this.firstName = firstName;
@@ -106,7 +102,7 @@ public class UserDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getRole() {
 		return role;
 	}
@@ -114,7 +110,7 @@ public class UserDto {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
 	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
