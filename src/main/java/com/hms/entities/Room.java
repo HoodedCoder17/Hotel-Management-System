@@ -1,47 +1,59 @@
 package com.hms.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="room")
+@Table(name = "room")
 public class Room {
 
-	@Id
-	@Column(name="room_id")
-	private Long roomId;
-	
-	@Column(name="room_type")
-	private String roomType;
-	
-	@ManyToOne
-	private BookingDetails bookingDetails;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "room_id")
+    private Long roomId;
 
-	public Long getRoomId() {
-		return roomId;
-	}
+    @Column(name = "room_code")
+    private String roomCode;
 
-	public void setRoomId(Long roomId) {
-		this.roomId = roomId;
-	}
+    @OneToMany(mappedBy = "room")
+    private List<BookingDetails> bookingDetailsList;
 
-	public String getRoomType() {
-		return roomType;
-	}
+    // constructors, getters, and setters
 
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
-	}
+    public Room() {}
 
-	public BookingDetails getBookingDetails() {
-		return bookingDetails;
-	}
+    public Room(String roomCode) {
+        this.roomCode = roomCode;
+    }
 
-	public void setBookingDetails(BookingDetails bookingDetails) {
-		this.bookingDetails = bookingDetails;
-	}
-	
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getRoomCode() {
+        return roomCode;
+    }
+
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode;
+    }
+
+    public List<BookingDetails> getBookingDetailsList() {
+        return bookingDetailsList;
+    }
+
+    public void setBookingDetailsList(List<BookingDetails> bookingDetailsList) {
+        this.bookingDetailsList = bookingDetailsList;
+    }
 }
