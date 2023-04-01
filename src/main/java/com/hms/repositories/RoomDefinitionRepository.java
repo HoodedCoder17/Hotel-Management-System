@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.hms.entities.RoomDefinition;
 
 public interface RoomDefinitionRepository extends JpaRepository<RoomDefinition, String> {
+	
+	RoomDefinition findByRoomCode(String roomCode);
 
 }

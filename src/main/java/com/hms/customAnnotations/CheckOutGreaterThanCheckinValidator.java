@@ -1,5 +1,7 @@
 package com.hms.customAnnotations;
 
+import java.time.LocalDate;
+
 import com.hms.dto.SearchParameterDTO;
 
 import jakarta.validation.ConstraintValidator;
@@ -13,6 +15,7 @@ public class CheckOutGreaterThanCheckinValidator
 		String message = "Check-Out date should be after Check-In Date!";
 		String property = "checkOut";
 		boolean isValid = true;
+		LocalDate now = LocalDate.now();
 		if(search.getCheckIn() == null) {
 			message = "Please select a Check-In Date";
 			property = "checkIn";
@@ -21,7 +24,12 @@ public class CheckOutGreaterThanCheckinValidator
 			message = "Please select a Check-Out Date";
 			isValid = false;
 			property = "checkOut";
-		} else {
+		} else if (!search.getCheckIn().isAfter(now)) {
+			message = "Please select a Check-In Date of future";
+			isValid = false;
+			property = "checkIn";
+		}
+		else {
 			isValid = search.getCheckOut().isAfter(search.getCheckIn());
 			property = "checkOut";
 		}
