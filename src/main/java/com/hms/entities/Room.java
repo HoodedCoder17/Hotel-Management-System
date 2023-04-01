@@ -15,9 +15,12 @@ import jakarta.persistence.Table;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "room_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long roomId;
+    
+    @Column(name = "room_number")
+    private Long roomNumber;
 
     @Column(name = "room_code")
     private String roomCode;
@@ -29,19 +32,31 @@ public class Room {
 
     public Room() {}
 
-    public Room(String roomCode) {
-        this.roomCode = roomCode;
-    }
+    public Room(Long roomId, Long roomNumber, String roomCode, List<BookingDetails> bookingDetailsList) {
+		super();
+		this.roomId = roomId;
+		this.roomNumber = roomNumber;
+		this.roomCode = roomCode;
+		this.bookingDetailsList = bookingDetailsList;
+	}
 
-    public Long getRoomId() {
+	public Long getRoomId() {
         return roomId;
     }
 
     public void setRoomId(Long roomId) {
         this.roomId = roomId;
     }
+    
+    public Long getRoomNumber() {
+		return roomNumber;
+	}
 
-    public String getRoomCode() {
+	public void setRoomNumber(Long roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+
+	public String getRoomCode() {
         return roomCode;
     }
 

@@ -1,45 +1,43 @@
-package com.hms.entities;
+package com.hms.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+public class SearchResultDto {
 
-@Entity
-@Table(name = "room_definition")
-public class RoomDefinition {
-
-	@Id
-	@Column(name = "room_code")
+	private Long roomNumber;
+	
 	private String roomCode;
-
-	@Column(name = "room_type")
+	
 	private String roomType;
-
-	@Column(name = "max_guests")
+	
 	private int maxGuests;
-
-	@Column(name = "price")
+	
 	private Long price;
 
-	@Column(name = "description", length = 400)
 	private String description;
 
-	@Column(name = "image_url")
 	private String imageUrl;
 
-	// constructors, getters, and setters
-
-	public RoomDefinition() {
+	public SearchResultDto() {
+		super();
 	}
 
-	public RoomDefinition(String roomCode, String roomType, int maxGuests, Long price, String description, String imageUrl) {
+	public SearchResultDto(Long roomNumber, String roomCode, String roomType, int maxGuests, Long price,
+			String description, String imageUrl) {
+		super();
+		this.roomNumber = roomNumber;
 		this.roomCode = roomCode;
 		this.roomType = roomType;
 		this.maxGuests = maxGuests;
 		this.price = price;
 		this.description = description;
 		this.imageUrl = imageUrl;
+	}
+
+	public Long getRoomNumber() {
+		return roomNumber;
+	}
+
+	public void setRoomNumber(Long roomNumber) {
+		this.roomNumber = roomNumber;
 	}
 
 	public String getRoomCode() {
@@ -70,7 +68,7 @@ public class RoomDefinition {
 		return price;
 	}
 
-	public void setprice(Long price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
@@ -89,4 +87,12 @@ public class RoomDefinition {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
+	@Override
+	public String toString() {
+		return "SearchResultDto [roomNumber=" + roomNumber + ", roomCode=" + roomCode + ", roomType=" + roomType
+				+ ", maxGuests=" + maxGuests + ", price=" + price + ", description=" + description + ", imageUrl="
+				+ imageUrl + "]";
+	}
+	
 }
