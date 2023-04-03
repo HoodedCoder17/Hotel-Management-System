@@ -56,7 +56,7 @@ public class User {
 	@Column(name = "modified_date")
 	@LastModifiedDate
 	private LocalDateTime modifiedDate;
-
+	
 	public User() {
 		super();
 	}

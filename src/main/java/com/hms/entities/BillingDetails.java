@@ -21,7 +21,7 @@ public class BillingDetails {
     private Long billingId;
 
     @Column(name = "total_amount")
-    private BigDecimal totalAmount;
+    private Long totalAmount;
 
     @Column(name = "payment_date")
     private LocalDate paymentDate;
@@ -33,7 +33,7 @@ public class BillingDetails {
 
     public BillingDetails() {}
 
-    public BillingDetails(BigDecimal totalAmount, LocalDate paymentDate) {
+    public BillingDetails(Long totalAmount, LocalDate paymentDate) {
         this.totalAmount = totalAmount;
         this.paymentDate = paymentDate;
     }
@@ -46,11 +46,11 @@ public class BillingDetails {
         this.billingId = billingId;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Long getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Long totalAmount) {
         this.totalAmount = totalAmount;
     }
 

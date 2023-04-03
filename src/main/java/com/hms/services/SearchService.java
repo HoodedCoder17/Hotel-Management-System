@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import com.hms.dto.SearchResultDto;
+import com.hms.dto.RoomDto;
 import com.hms.entities.Room;
 import com.hms.entities.RoomDefinition;
 
@@ -16,14 +16,14 @@ public interface SearchService {
 	
 	ArrayList<RoomDefinition> fetchRoomDefinitions();
 	
-	Room fetchRoomByCode(String roomCode);
+	Room fetchRoomByRoomCode(String roomCode);
 	
 	Room fetchRoomById(String roomId);
 
 	RoomDefinition fetchRoomDefinitionByCode(String roomCode);
 	
-	SearchResultDto setSearchResultDto(String roomCode);
+	RoomDto setRoomDto(String roomCode);
 	
-	ArrayList<SearchResultDto> setSearchResultDtoAll();
+	ArrayList<RoomDto> setRoomDtoAll();
 
 }

@@ -48,9 +48,9 @@ public class SearchController {
 			mav.addObject("roomTypes", searchService.fetchRoomDefinitions());
 			if (!search.getPreferredRoomType().equals("")) {
 				System.out.println("getPreferredRoomType is not null");
-				mav.addObject("searchResultDto", searchService.setSearchResultDto(search.getPreferredRoomType()));
+				mav.addObject("roomDto", searchService.setRoomDto(search.getPreferredRoomType()));
 			} else {
-				mav.addObject("searchResultDto", searchService.setSearchResultDtoAll());
+				mav.addObject("roomDto", searchService.setRoomDtoAll());
 			}
 			mav.addObject("search", search);
 	        return mav;

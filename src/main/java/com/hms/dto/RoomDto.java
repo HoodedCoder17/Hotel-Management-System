@@ -1,6 +1,6 @@
 package com.hms.dto;
 
-public class SearchResultDto {
+public class RoomDto {
 
 	private Long roomNumber;
 	
@@ -16,11 +16,11 @@ public class SearchResultDto {
 
 	private String imageUrl;
 
-	public SearchResultDto() {
+	public RoomDto() {
 		super();
 	}
 
-	public SearchResultDto(Long roomNumber, String roomCode, String roomType, int maxGuests, Long price,
+	public RoomDto(Long roomNumber, String roomCode, String roomType, int maxGuests, Long price,
 			String description, String imageUrl) {
 		super();
 		this.roomNumber = roomNumber;
@@ -90,7 +90,7 @@ public class SearchResultDto {
 
 	@Override
 	public String toString() {
-		return "SearchResultDto [roomNumber=" + roomNumber + ", roomCode=" + roomCode + ", roomType=" + roomType
+		return "RoomDto [roomNumber=" + roomNumber + ", roomCode=" + roomCode + ", roomType=" + roomType
 				+ ", maxGuests=" + maxGuests + ", price=" + price + ", description=" + description + ", imageUrl="
 				+ imageUrl + "]";
 	}
