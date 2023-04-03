@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hms.dto.SearchResultDto;
+import com.hms.dto.RoomDto;
 import com.hms.entities.Room;
 import com.hms.entities.RoomDefinition;
 import com.hms.repositories.RoomDefinitionRepository;
@@ -32,7 +32,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public Room fetchRoomByCode(String roomCode) {
+	public Room fetchRoomByRoomCode(String roomCode) {
 
 		return roomRepository.findByRoomCode(roomCode);
 	}
@@ -44,25 +44,23 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public SearchResultDto setSearchResultDto(String roomCode) {
-		Room room = fetchRoomByCode(roomCode);
-		RoomDefinition roomDefinition = fetchRoomDefinitionByCode(roomCode);
-		return new SearchResultDto(room.getRoomNumber(), room.getRoomCode(), roomDefinition.getRoomType(),
-				roomDefinition.getMaxGuests(), roomDefinition.getPrice(), roomDefinition.getDescription(),
-				roomDefinition.getImageUrl());
+	public RoomDto setRoomDto(String roomCode) {
+		Room room = fetchRoomByRoomCode(roomCode);
+		return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
+				room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+				room.getRoomDefinition().getImageUrl());
 	}
 
 	@Override
-	public ArrayList<SearchResultDto> setSearchResultDtoAll() {
-		ArrayList<SearchResultDto> searchResultDtoList = new ArrayList<SearchResultDto>();
+	public ArrayList<RoomDto> setRoomDtoAll() {
+		ArrayList<RoomDto> roomDtoList = new ArrayList<RoomDto>();
 
 		for (Room room : roomRepository.findAll()) {
-			RoomDefinition roomDefinition = fetchRoomDefinitionByCode(room.getRoomCode());
-			searchResultDtoList.add(new SearchResultDto(room.getRoomNumber(), room.getRoomCode(),
-					roomDefinition.getRoomType(), roomDefinition.getMaxGuests(), roomDefinition.getPrice(),
-					roomDefinition.getDescription(), roomDefinition.getImageUrl()));
+			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
+					room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+					room.getRoomDefinition().getImageUrl()));
 		}
-		return searchResultDtoList;
+		return roomDtoList;
 	}
 
 }

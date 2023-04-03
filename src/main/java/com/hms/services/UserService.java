@@ -13,5 +13,7 @@ import jakarta.transaction.Transactional;
 public interface UserService {
 
 	User registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException;
+	
+	User fetchUserByUserName(String userName);
 
 }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,68 +18,78 @@ import jakarta.persistence.Table;
 @Table(name = "booking_details")
 public class BookingDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "booking_id")
-    private Long bookingId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "booking_id")
+	private Long bookingId;
 
-    @Column(name = "start_date")
-    private LocalDate startDate;
+	@Column(name = "check_in_date")
+	private LocalDate checkInDate;
 
-    @Column(name = "end_date")
-    private LocalDate endDate;
+	@Column(name = "check_out_date")
+	private LocalDate checkOutDate;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
+	@Column(name = "no_of_guests")
+	private Long noOfGuests;
+
+	@ManyToOne
+    @JoinColumn(name = "room_id", referencedColumnName = "room_id")
     private Room room;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "billing_id")
-    private BillingDetails billingDetails;
 
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "billing_id")
+	private BillingDetails billingDetails;
 
-    // constructors, getters, and setters
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
 
-    public BookingDetails() {}
+	// constructors, getters, and setters
 
-    public BookingDetails(LocalDate startDate, LocalDate endDate, Room room, BillingDetails billingDetails) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.room = room;
-        this.billingDetails = billingDetails;
-    }
+	public BookingDetails() {
+	}
 
-    public Long getBookingId() {
-        return bookingId;
-    }
+	public BookingDetails(LocalDate checkInDate, LocalDate checkOutDate, Long noOfGuests, Room room,
+			BillingDetails billingDetails, User user) {
+		this.checkInDate = checkInDate;
+		this.checkOutDate = checkOutDate;
+		this.noOfGuests = noOfGuests;
+		this.room = room;
+		this.billingDetails = billingDetails;
+		this.user = user;
+	}
 
-    public void setBookingId(Long bookingId) {
-        this.bookingId = bookingId;
-    }
+	public Long getBookingId() {
+		return bookingId;
+	}
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+	public void setBookingId(Long bookingId) {
+		this.bookingId = bookingId;
+	}
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+	public LocalDate getCheckInDate() {
+		return checkInDate;
+	}
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
+	public void setCheckInDate(LocalDate checkInDate) {
+		this.checkInDate = checkInDate;
+	}
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
+	public LocalDate getCheckOutDate() {
+		return checkOutDate;
+	}
 
-    public Room getRoom() {
-        return room;
-    }
+	public void setCheckOutDate(LocalDate checkOutDate) {
+		this.checkOutDate = checkOutDate;
+	}
 
-    public void setRoom(Room room) {
-        this.room = room;
-    }
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 
 	public BillingDetails getBillingDetails() {
 		return billingDetails;
@@ -87,5 +98,21 @@ public class BookingDetails {
 	public void setBillingDetails(BillingDetails billingDetails) {
 		this.billingDetails = billingDetails;
 	}
-    
+
+	public Long getNoOfGuests() {
+		return noOfGuests;
+	}
+
+	public void setNoOfGuests(Long noOfGuests) {
+		this.noOfGuests = noOfGuests;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }

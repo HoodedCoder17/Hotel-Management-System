@@ -71,5 +71,10 @@ public class UserServiceImpl implements UserService, UserDetailsService  {
             authorities.add(new SimpleGrantedAuthority(role));
         return authorities;
     }
+	@Override
+	public User fetchUserByUserName(String userName) {
+		User user = userRepository.findByUserName(userName);
+		return user;
+	}
 
 }
