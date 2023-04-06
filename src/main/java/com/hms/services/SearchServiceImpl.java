@@ -1,5 +1,6 @@
 package com.hms.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,32 @@ public class SearchServiceImpl implements SearchService {
 		}
 		return roomDtoList;
 	}
+	
+	@Override
+	public RoomDto setRoomDtoBasedOnAvailabityAndRoomCode(String roomCode, LocalDate checkIn, LocalDate checkOut) {
+		Room room = roomRepository.findByRoomCodeBasedOnAvailabilityAndRoomCode(roomCode,checkIn,checkOut);
+		if (room != null) {
+			return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
+					room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+					room.getRoomDefinition().getImageUrl());
+		} else {
+			return new RoomDto();
+		}
+		
+	}
+
+	@Override
+	public ArrayList<RoomDto> setRoomDtoBasedOnAvailabity(LocalDate checkIn, LocalDate checkOut) {
+		ArrayList<RoomDto> roomDtoList = new ArrayList<RoomDto>();
+
+		for (Room room : roomRepository.findByRoomCodeBasedOnAvailability(checkIn, checkOut)) {
+			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
+					room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+					room.getRoomDefinition().getImageUrl()));
+		}
+		return roomDtoList;
+	}
+	
+	
 
 }
