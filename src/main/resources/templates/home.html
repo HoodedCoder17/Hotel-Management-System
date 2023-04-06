@@ -1,56 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-	<title>La Casa</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
+	<title>La Casa</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		body {
+			background-color: #f8f9fa;
+			padding: 20px;
+		}
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">La Casa</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		h1 {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.book-now-button {
+			background-color: #007bff;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.book-now-button:hover {
+			background-color: #0069d9;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/LaCasa.com/home">La Casa</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="#">Home</a>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Profile</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/rooms">Rooms</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Bookings</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Customers</a>
+					<a class="nav-link" href="/LaCasa.com/search">Book Now</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/LaCasa.com/logout">Logout</a>
 				</li>
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+				 <li class="nav-item">
+                    <a class="nav-link" href="#">Manage</a>
+                </li>
+				</div>
 			</ul>
 		</div>
 	</nav>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-md-6">
-				<h1>Welcome to La Casa</h1>
-				<p>A Portal to manage all aspects of your hotel, from room bookings to customer information and billing.</p>
-				<a href="#" class="btn btn-primary">Learn More</a>
-			</div>
-			<div class="col-md-6">
-				<img src="https://via.placeholder.com/600x400" alt="Hotel image" class="img-fluid">
+	<!-- Main content -->
+	<div class="my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<p>At La Casa Hotel, we strive to make our guests feel like they're at home. Our warm and welcoming
+						staff is here to make your stay as comfortable and enjoyable as possible.</p>
+					<div class="mt-5">
+						<a class="book-now-button" href="/LaCasa.com/search">Book Now</a>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<img src="https://via.placeholder.com/700x400.png?text=Image+Placeholder" alt="La Casa Hotel">
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>
