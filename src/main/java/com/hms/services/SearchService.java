@@ -1,5 +1,6 @@
 package com.hms.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
@@ -25,5 +26,9 @@ public interface SearchService {
 	RoomDto setRoomDto(String roomCode);
 	
 	ArrayList<RoomDto> setRoomDtoAll();
+	
+	ArrayList<RoomDto> setRoomDtoBasedOnAvailabity(LocalDate checkIn, LocalDate checkOut);
+
+	RoomDto setRoomDtoBasedOnAvailabityAndRoomCode(String roomCode, LocalDate checkIn, LocalDate checkOut);
 
 }

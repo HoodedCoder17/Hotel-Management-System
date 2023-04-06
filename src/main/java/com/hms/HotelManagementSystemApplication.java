@@ -5,12 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(
-/*
- * exclude = { DataSourceAutoConfiguration.class,
- * HibernateJpaAutoConfiguration.class }
- */
-						 )
+@SpringBootApplication()
 @EnableJpaRepositories(basePackages= {"com.hms.repositories"})
 @ComponentScan(basePackages = { "com.hms.controllers", "com.hms.services" ,"com.hms.config", "com.hms.entities"})
 public class HotelManagementSystemApplication {
@@ -19,9 +14,4 @@ public class HotelManagementSystemApplication {
 		SpringApplication.run(HotelManagementSystemApplication.class, args);
 	}
 	
-	/*
-	 * @Bean public PasswordEncoder BCryptEncoder() { return new
-	 * BCryptPasswordEncoder(); }
-	 */
-
 }

@@ -36,7 +36,7 @@ public class SearchController {
 	@PostMapping("/search")
 	public ModelAndView processSearch(@ModelAttribute("search") @Valid SearchParameterDTO search, BindingResult result,
 			HttpServletRequest request, HttpServletResponse response, Errors errors, Model model) throws IOException {
-		ModelAndView mav=  new ModelAndView();
+		ModelAndView mav = new ModelAndView();
 		model.addAttribute("roomTypes", searchService.fetchRoomDefinitions());
 		System.out.println("SearchParameterDTO object in POST method of search " + search.toString());
 		if (result.hasErrors()) {
@@ -46,14 +46,21 @@ public class SearchController {
 		} else {
 			mav.setViewName("results");
 			mav.addObject("roomTypes", searchService.fetchRoomDefinitions());
-			if (!search.getPreferredRoomType().equals("")) {
-				System.out.println("getPreferredRoomType is not null");
-				mav.addObject("roomDto", searchService.setRoomDto(search.getPreferredRoomType()));
+			if ((!search.getPreferredRoomType().equals("")) && search.getBudget() != null) {
+				// Block handling Requests where Room type is selected along with Budget
+			} else if ((search.getPreferredRoomType().equals("")) && search.getBudget() != null) {
+				// Block handling Requests where only Budget is selected
+			} else if (!search.getPreferredRoomType().equals("")) {
+				// Block handling Requests where only Room type is selected
+				mav.addObject("roomDto", searchService.setRoomDtoBasedOnAvailabityAndRoomCode(
+						search.getPreferredRoomType(), search.getCheckIn(), search.getCheckOut()));
 			} else {
-				mav.addObject("roomDto", searchService.setRoomDtoAll());
+				// Block handling Requests where Room type is NOT selected
+				mav.addObject("roomDto",
+						searchService.setRoomDtoBasedOnAvailabity(search.getCheckIn(), search.getCheckOut()));
 			}
 			mav.addObject("search", search);
-	        return mav;
+			return mav;
 		}
 	}
 

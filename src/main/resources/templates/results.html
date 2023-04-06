@@ -88,6 +88,22 @@
 			margin-top: auto;
 			text-align: center;
 		}
+
+		.no-rooms-found {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.no-rooms-found h3 {
+			font-size: 24px;
+			text-align: center;
+			background-color: #f0f0f0;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
 	</style>
 </head>
 
@@ -120,20 +136,29 @@
 	</nav>
 	<div class="row">
 		<div class="col-md-6 search-result" th:each="room : ${roomDto}">
-			<div class="search-result-container">
-				<img th:src=@{/{imageUri}(imageUri=${room.imageUrl})} class="img-fluid">
+			<div th:if="${#lists.size(roomDto) > 1 and room.roomNumber != null or #lists.size(roomDto) == 1 and room.roomNumber != null}"
+				class="search-result-container">
+				<img th:src="@{/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
 				<div class="room-details">
 					<h3 th:text="${room.roomType}"></h3>
 					<p th:text="${room.description}"></p>
 					<p th:text="'Price: $' + ${room.price} + '/night'"></p>
 				</div>
 				<div class="book-now-container">
-					<a th:href="@{/bookings/book(roomNumber=${room.roomNumber})}" class="btn btn-primary">Book Now</a>
+					<a th:href="@{/bookings/book(roomNumber=${#lists.size(roomDto) > 1 ? room.roomNumber : roomDto.roomNumber})}"
+						class="btn btn-primary">Book Now</a>
+				</div>
+			</div>
+			<div th:if="${room.roomNumber == null}" class="no-rooms-found">
+				<div class="text-center">
+					<h2 class="mb-3">Oops, no rooms available!</h2>
+					<p class="mb-4">We're sorry, but we couldn't find any rooms available during the dates you
+						specified. Please try a different date range or check back later.</p>
+					<a href="/LaCasa.com/search" class="btn btn-primary">Search Again</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>
