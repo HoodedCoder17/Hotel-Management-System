@@ -51,10 +51,10 @@ public class SecurityConfig extends WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/about/**",
 				"/js/**", "/css/**", "/img/**", "/resources/**").permitAll()
-				.requestMatchers("/home").authenticated()
-				/* .requestMatchers("/rooms").hasAnyAuthority("ADMIN","USER") *//*
-				* .requestMatchers("/**").hasAuthority("USER")
-				*/).httpBasic().disable().formLogin()
+				.requestMatchers("/**").authenticated()
+				 .requestMatchers("/rooms").hasAuthority("USER") 
+				 .requestMatchers("/search**").hasAnyAuthority("ADMIN","USER")
+				).httpBasic().disable().formLogin()
 				.loginPage("/signin").loginProcessingUrl("/process-signin").defaultSuccessUrl("/home").permitAll()
 				.failureHandler(new MyAuthenticationFailureHandler()).and()
 
