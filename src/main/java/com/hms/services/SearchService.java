@@ -30,5 +30,11 @@ public interface SearchService {
 	ArrayList<RoomDto> setRoomDtoBasedOnAvailabity(LocalDate checkIn, LocalDate checkOut);
 
 	RoomDto setRoomDtoBasedOnAvailabityAndRoomCode(String roomCode, LocalDate checkIn, LocalDate checkOut);
+	
+	ArrayList<RoomDto> setRoomDtoBasedOnAvailabityAndBudget(Long budget, LocalDate checkIn, LocalDate checkOut);
+	
+	RoomDto setRoomDtoBasedOnAvailabityAndRoomCodeAndBudget(String roomCode, Long budget, LocalDate checkIn, LocalDate checkOut);
+	
+	ArrayList<Long> decodeBudget(Long budget);
 
 }
