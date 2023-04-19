@@ -1,6 +1,5 @@
 package com.hms.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class BookingDto {
@@ -19,7 +18,7 @@ public class BookingDto {
 
 	private Long billingId;
 
-	private BigDecimal totalAmount;
+	private Long totalAmount;
 
 	private LocalDate paymentDate;
 
@@ -33,7 +32,7 @@ public class BookingDto {
 	}
 
 	public BookingDto(Long bookingId, Long roomNumber, String roomCode, LocalDate checkInDate, LocalDate checkOutDate, Long noOfGuests,
-			Long billingId, BigDecimal totalAmount, LocalDate paymentDate) {
+			Long billingId, Long totalAmount, LocalDate paymentDate) {
 		super();
 		this.bookingId = bookingId;
 		this.roomNumber = roomNumber;
@@ -102,11 +101,11 @@ public class BookingDto {
 		this.billingId = billingId;
 	}
 
-	public BigDecimal getTotalAmount() {
+	public Long getTotalAmount() {
 		return totalAmount;
 	}
 
-	public void setTotalAmount(BigDecimal totalAmount) {
+	public void setTotalAmount(Long totalAmount) {
 		this.totalAmount = totalAmount;
 	}
 

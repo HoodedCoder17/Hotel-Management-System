@@ -36,7 +36,14 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 	@Query(value = "SELECT R FROM Room R join RoomDefinition RD ON R.roomDefinition = RD.roomCode WHERE RD.roomCode = ?1  AND RD.price >= ?2 AND RD.price <= ?3 "
 			+ "AND R.roomId NOT IN (SELECT BD.room.roomId FROM BookingDetails BD WHERE"
 			+ " (BD.checkInDate < ?5 AND BD.checkOutDate > ?4 ) OR (BD.checkInDate <= ?4 AND BD.checkOutDate >= ?5 )) ORDER BY RD.price")
-	Room findByRoomCodeBasedOnAvailabilityAndRoomCodeAndBudget(String roomCode, Long budgetMin,
-			Long budgetMax, LocalDate checkIn, LocalDate checkOut);
+	Room findByRoomCodeBasedOnAvailabilityAndRoomCodeAndBudget(String roomCode, Long budgetMin, Long budgetMax,
+			LocalDate checkIn, LocalDate checkOut);
 
+	@Query(value = "SELECT COUNT(R) FROM Room R WHERE R.roomNumber = ?1 "
+			+ "AND R.roomId NOT IN (SELECT BD.room.roomId FROM BookingDetails BD WHERE"
+			+ " (BD.checkInDate < ?3 AND BD.checkOutDate > ?2 ) OR (BD.checkInDate <= ?2 AND BD.checkOutDate >= ?3 ))")
+	Long checkRoomAvailabiltyBasedOnRoomNumber(Long roomNumber, LocalDate checkIn, LocalDate checkOut);
+
+	@Query(value = "SELECT RD.maxGuests FROM Room R join RoomDefinition RD ON R.roomDefinition = RD.roomCode WHERE R.roomNumber = ?1")
+	Long getMaxGuestsForTheRoom(Long roomNumber);
 }

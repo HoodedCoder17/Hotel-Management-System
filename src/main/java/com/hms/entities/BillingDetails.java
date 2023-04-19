@@ -1,6 +1,5 @@
 package com.hms.entities;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;

@@ -111,21 +111,21 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public RoomDto setRoomDtoBasedOnAvailabityAndRoomCodeAndBudget(String roomCode, Long budget,
-			LocalDate checkIn, LocalDate checkOut) {
+	public RoomDto setRoomDtoBasedOnAvailabityAndRoomCodeAndBudget(String roomCode, Long budget, LocalDate checkIn,
+			LocalDate checkOut) {
 
 		ArrayList<Long> range = decodeBudget(budget);
 
 		Room room = roomRepository.findByRoomCodeBasedOnAvailabilityAndRoomCodeAndBudget(roomCode, range.get(0),
 				range.get(1), checkIn, checkOut);
-			if (room != null) {
-				return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
-						room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
-						room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
-						room.getRoomDefinition().getImageUrl());
-			} else {
-				return new RoomDto();
-			}
+		if (room != null) {
+			return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+					room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+					room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+					room.getRoomDefinition().getImageUrl());
+		} else {
+			return new RoomDto();
+		}
 
 	}
 
