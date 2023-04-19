@@ -99,6 +99,9 @@
 					<div class="card-header bg-primary text-white">
 						Room Details
 					</div>
+					<div class="error-message" th:if="${error}">
+						<p th:text="${session.errormsg}" th:unless="${session == null}">[...]</p>
+					</div>
 					<div class="card-body">
 						<form th:action="@{/bookings/book}" th:object="${bookingDto}" method="post">
 							<input type="hidden" th:field="*{roomNumber}" th:value="${roomDto.roomNumber}" />
