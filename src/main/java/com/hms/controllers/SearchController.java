@@ -48,14 +48,18 @@ public class SearchController {
 			mav.addObject("roomTypes", searchService.fetchRoomDefinitions());
 			if ((!search.getPreferredRoomType().equals("")) && search.getBudget() != null) {
 				// Block handling Requests where Room type is selected along with Budget
+				mav.addObject("roomDto", searchService.setRoomDtoBasedOnAvailabityAndRoomCodeAndBudget(
+						search.getPreferredRoomType(), search.getBudget(), search.getCheckIn(), search.getCheckOut()));
 			} else if ((search.getPreferredRoomType().equals("")) && search.getBudget() != null) {
 				// Block handling Requests where only Budget is selected
+				mav.addObject("roomDto", searchService.setRoomDtoBasedOnAvailabityAndBudget(search.getBudget(),
+						search.getCheckIn(), search.getCheckOut()));
 			} else if (!search.getPreferredRoomType().equals("")) {
 				// Block handling Requests where only Room type is selected
 				mav.addObject("roomDto", searchService.setRoomDtoBasedOnAvailabityAndRoomCode(
 						search.getPreferredRoomType(), search.getCheckIn(), search.getCheckOut()));
 			} else {
-				// Block handling Requests where Room type is NOT selected
+				// Block handling Requests where No criteria other then date is selected
 				mav.addObject("roomDto",
 						searchService.setRoomDtoBasedOnAvailabity(search.getCheckIn(), search.getCheckOut()));
 			}

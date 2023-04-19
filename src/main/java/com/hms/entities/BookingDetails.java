@@ -43,6 +43,10 @@ public class BookingDetails {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
+	
+	// Status will be set to True when booking is active, status is false when booking is cancelled
+	@Column(name = "status")
+	private Boolean status;
 
 	// constructors, getters, and setters
 
@@ -50,13 +54,14 @@ public class BookingDetails {
 	}
 
 	public BookingDetails(LocalDate checkInDate, LocalDate checkOutDate, Long noOfGuests, Room room,
-			BillingDetails billingDetails, User user) {
+			BillingDetails billingDetails, User user, Boolean status) {
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
 		this.noOfGuests = noOfGuests;
 		this.room = room;
 		this.billingDetails = billingDetails;
 		this.user = user;
+		this.status = status;
 	}
 
 	public Long getBookingId() {
@@ -113,6 +118,14 @@ public class BookingDetails {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

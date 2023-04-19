@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Show Bookings</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<style>
+		body {
+			background-color: #f8f9fa;
+		}
+
+		html,
+		body {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+
+		.navbar {
+			background-color: #2c3e50;
+		}
+
+		.form-control {
+			background-color: #e6e6e6;
+			border-color: #b18fff;
+			color: #6c757d;
+			font-weight: 500;
+		}
+
+		.form-control:focus {
+			background-color: #fff;
+			border-color: #8b5fff;
+			color: #495057;
+			box-shadow: none;
+		}
+
+		.btn-primary {
+			background-color: #8b5fff;
+			border-color: #8b5fff;
+			font-weight: 500;
+		}
+
+		.btn-primary:hover {
+			background-color: #b18fff;
+			border-color: #b18fff;
+		}
+
+		#form-container .error-message {
+			color: red;
+			margin-top: 5px;
+			margin-bottom: 0;
+			font-size: 14px;
+		}
+
+		.table {
+			background-color: #fff;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+		}
+
+		.table th {
+			background-color: #8b5fff;
+			color: #fff;
+			font-weight: bold;
+			border: none;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.table td {
+			border: none;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.cancel-btn {
+			background-color: #ff6b6b;
+			color: #fff;
+			border-radius: 5px;
+			padding: 5px 10px;
+			font-size: 14px;
+			cursor: pointer;
+		}
+
+		.cancel-btn:hover {
+			background-color: #ff4f4f;
+		}
+		
+		.error-message {
+			color: red;
+			margin-top: 5px;
+			margin-bottom: 0;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<a class="navbar-brand text-light" href="/LaCasa.com/home">La Casa</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/search">Book Now</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+		<div class="error-message" th:if="${error}">
+			<p th:text="${session.errormsg}" th:unless="${session == null}">[...]</p>
+		</div>
+		<h1>Your Bookings</h1>
+		<table class="table mt-4">
+			<thead>
+				<tr>
+					<th>Booking ID</th>
+					<th>Room Number</th>
+					<th>Check-in Date</th>
+					<th>Check-out Date</th>
+					<th>No. of Guests</th>
+					<th>Total Amount</th>
+					<th>Payment Date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="booking : ${BookingDtoList}">
+					<td th:text="${booking.bookingId}"></td>
+					<td th:text="${booking.roomNumber}"></td>
+					<td th:text="${booking.checkInDate}"></td>
+					<td th:text="${booking.checkOutDate}"></td>
+					<td th:text="${booking.noOfGuests}"></td>
+					<td th:text="${booking.totalAmount}"></td>
+					<td th:text="${booking.paymentDate}"></td>
+					<td>
+						<a th:href="@{/bookings/cancelled?bookingId={bid}(bid=${booking.bookingId})}" class="btn btn-danger"
+							onclick="return confirm('Are you sure you want to cancel this booking?');">Cancel</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
