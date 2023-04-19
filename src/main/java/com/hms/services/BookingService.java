@@ -1,6 +1,7 @@
 package com.hms.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,18 @@ public interface BookingService {
 	
 	Long calculateBill(Long price, LocalDate checkInDate, LocalDate checkOutDate);
 	
-	String getLoggedInUserName();
+	Boolean checkRoomAvailability(Long roomNumber, LocalDate checkInDate, LocalDate checkOutDate);
+	
+	Boolean checkIfGuestsUnderTheRoomLimits(Long expectedGuests,Long roomNumber);
+	
+	Boolean checkIfCheckInDateIsInFuture(LocalDate checkInDate);
+	
+	Boolean checkIfCheckOutDateIsGreaterThanCheckInDate(LocalDate checkInDate, LocalDate checkOutDate);
+	
+	ArrayList<BookingDto> findAllBookingsOfLoggedInUser();
+	
+	Boolean cancelBooking(Long bookingId);
+	
+	Boolean checkIfBookingIsInFuture(LocalDate checkInDate);
 
 }

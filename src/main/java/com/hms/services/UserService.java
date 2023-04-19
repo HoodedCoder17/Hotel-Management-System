@@ -15,5 +15,7 @@ public interface UserService {
 	User registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException;
 	
 	User fetchUserByUserName(String userName);
+	
+	String getLoggedInUserName();
 
 }

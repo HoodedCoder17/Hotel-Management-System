@@ -47,8 +47,9 @@ public class SearchServiceImpl implements SearchService {
 	@Override
 	public RoomDto setRoomDto(String roomCode) {
 		Room room = fetchRoomByRoomCode(roomCode);
-		return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
-				room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+		return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+				room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+				room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
 				room.getRoomDefinition().getImageUrl());
 	}
 
@@ -57,24 +58,26 @@ public class SearchServiceImpl implements SearchService {
 		ArrayList<RoomDto> roomDtoList = new ArrayList<RoomDto>();
 
 		for (Room room : roomRepository.findAll()) {
-			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
-					room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+					room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+					room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
 					room.getRoomDefinition().getImageUrl()));
 		}
 		return roomDtoList;
 	}
-	
+
 	@Override
 	public RoomDto setRoomDtoBasedOnAvailabityAndRoomCode(String roomCode, LocalDate checkIn, LocalDate checkOut) {
-		Room room = roomRepository.findByRoomCodeBasedOnAvailabilityAndRoomCode(roomCode,checkIn,checkOut);
+		Room room = roomRepository.findByRoomCodeBasedOnAvailabilityAndRoomCode(roomCode, checkIn, checkOut);
 		if (room != null) {
-			return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
-					room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+			return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+					room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+					room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
 					room.getRoomDefinition().getImageUrl());
 		} else {
 			return new RoomDto();
 		}
-		
+
 	}
 
 	@Override
@@ -82,13 +85,76 @@ public class SearchServiceImpl implements SearchService {
 		ArrayList<RoomDto> roomDtoList = new ArrayList<RoomDto>();
 
 		for (Room room : roomRepository.findByRoomCodeBasedOnAvailability(checkIn, checkOut)) {
-			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(), room.getRoomDefinition().getRoomType(),
-					room.getRoomDefinition().getMaxGuests(), room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+					room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+					room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
 					room.getRoomDefinition().getImageUrl()));
 		}
 		return roomDtoList;
 	}
-	
-	
+
+	@Override
+	public ArrayList<RoomDto> setRoomDtoBasedOnAvailabityAndBudget(Long budget, LocalDate checkIn, LocalDate checkOut) {
+		ArrayList<RoomDto> roomDtoList = new ArrayList<RoomDto>();
+
+		ArrayList<Long> range = decodeBudget(budget);
+
+		for (Room room : roomRepository.findByRoomCodeBasedOnAvailabilityAndBudget(range.get(0), range.get(1), checkIn,
+				checkOut)) {
+			roomDtoList.add(new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+					room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+					room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+					room.getRoomDefinition().getImageUrl()));
+		}
+
+		return roomDtoList;
+	}
+
+	@Override
+	public RoomDto setRoomDtoBasedOnAvailabityAndRoomCodeAndBudget(String roomCode, Long budget, LocalDate checkIn,
+			LocalDate checkOut) {
+
+		ArrayList<Long> range = decodeBudget(budget);
+
+		Room room = roomRepository.findByRoomCodeBasedOnAvailabilityAndRoomCodeAndBudget(roomCode, range.get(0),
+				range.get(1), checkIn, checkOut);
+		if (room != null) {
+			return new RoomDto(room.getRoomNumber(), room.getRoomDefinition().getRoomCode(),
+					room.getRoomDefinition().getRoomType(), room.getRoomDefinition().getMaxGuests(),
+					room.getRoomDefinition().getPrice(), room.getRoomDefinition().getDescription(),
+					room.getRoomDefinition().getImageUrl());
+		} else {
+			return new RoomDto();
+		}
+
+	}
+
+	public ArrayList<Long> decodeBudget(Long budget) {
+		ArrayList<Long> range = new ArrayList<Long>();
+		switch (budget.intValue()) {
+		case 1:
+			range.add(0, (long) 0);
+			range.add(1, (long) 3000);
+			break;
+		case 2:
+			range.add(0, (long) 3001);
+			range.add(1, (long) 5000);
+			break;
+		case 3:
+			range.add(0, (long) 5001);
+			range.add(1, (long) 9000);
+			break;
+		case 4:
+			range.add(0, (long) 9001);
+			range.add(1, (long) 15000);
+			break;
+		case 5:
+			range.add(0, (long) 15001);
+			range.add(1, (long) 300000);
+			break;
+		}
+		return range;
+
+	}
 
 }

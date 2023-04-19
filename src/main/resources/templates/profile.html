@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
- xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -21,7 +20,7 @@
 			margin-bottom: 30px;
 		}
 
-		.book-now-button {
+		.check-bookings-button {
 			background-color: #007bff;
 			border: none;
 			color: white;
@@ -32,8 +31,31 @@
 			transition: background-color 0.3s ease;
 		}
 
-		.book-now-button:hover {
+		.check-bookings-button:hover {
 			background-color: #0069d9;
+		}
+
+		.container {
+			background-color: #fff;
+			padding: 30px;
+			border-radius: 5px;
+			box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.container p {
+			font-size: 18px;
+			color: #333;
+			margin-bottom: 15px;
+		}
+
+		.card-header {
+			width: 100%;
+		}
+
+		.custom-card-header {
+			width: 100%;
 		}
 	</style>
 </head>
@@ -48,7 +70,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="/LaCasa.com/profile">Profile</a>
+					<a class="nav-link" href="/LaCasa.com/bookings/showBookings">Your Bookings</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/LaCasa.com/search">Book Now</a>
@@ -56,11 +78,6 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/LaCasa.com/logout">Logout</a>
 				</li>
-				<div sec:authorize="hasRole('ROLE_ADMIN')">
-				 <li class="nav-item">
-                    <a class="nav-link" href="#">Manage</a>
-                </li>
-				</div>
 			</ul>
 		</div>
 	</nav>
@@ -69,20 +86,32 @@
 	<div class="my-5">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<p>At La Casa Hotel, we strive to make our guests feel like they're at home. Our warm and welcoming
-						staff is here to make your stay as comfortable and enjoyable as possible.</p>
-					<div class="mt-5">
-						<a class="book-now-button" href="/LaCasa.com/search">Book Now</a>
+				<div class="col-md-8 mx-auto">
+					<div class="card">
+						<div class="card-header bg-primary text-white custom-card-header">
+							<h3 class="text-center mb-0">Profile Information</h3>
+						</div>
+						<div class="card-body">
+							<p class="card-text"><strong>User Name:</strong> <span th:text="${userDto.userName}"></span>
+							</p>
+							<p class="card-text"><strong>First Name:</strong> <span
+									th:text="${userDto.firstName}"></span></p>
+							<p class="card-text"><strong>Last Name:</strong> <span th:text="${userDto.lastName}"></span>
+							</p>
+							<p class="card-text"><strong>Email ID:</strong> <span th:text="${userDto.email}"></span></p>
+							<p class="card-text"><strong>Date of Birth:</strong> <span
+									th:text="${userDto.dateOfBirth}"></span></p>
+							<p class="card-text"><strong>Role:</strong> <span th:text="${userDto.role}"></span></p>
+							<div class="mt-5 text-center">
+								<a class="btn btn-primary" href="/LaCasa.com/bookings/showBookings">Check Your
+									Bookings</a>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="col-md-8">
-					<img src="https://via.placeholder.com/700x400.png?text=Image+Placeholder" alt="La Casa Hotel">
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>
