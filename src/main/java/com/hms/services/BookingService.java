@@ -40,5 +40,7 @@ public interface BookingService {
 	Long fetchAmountOfBookingsByUserId(Long userId);
 	
 	Long fetchBookingValueByUserId(Long userId);
+	
+	ArrayList<BookingDto> findAllBookingsOfAllUsers();
 
 }

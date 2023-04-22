@@ -12,6 +12,8 @@ import com.hms.dto.UserDto;
 import com.hms.services.BookingService;
 import com.hms.services.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class AdminActivitiesController {
 
@@ -51,5 +53,25 @@ public class AdminActivitiesController {
 		userService.activateUser(userId);
 		return "userActivated";
 	}
+	
+	@GetMapping(path = "/manage/bookings")
+	public String showAllBookings(Model model) {
+		model.addAttribute("BookingDtoList", bookingService.findAllBookingsOfAllUsers());
+		return "showAllBookings";
+	}
+	
+	@GetMapping("/manage/bookings/cancelled")
+	public String cancelBooking(@RequestParam("bookingId") Long bookingId, Model model, HttpSession session) {
+		if (bookingService.cancelBooking(bookingId)) {
+			model.addAttribute("bookingId", bookingId);
+			return "cancelled";
+		} else {
+			model.addAttribute("error", true);
+			model.addAttribute("BookingDtoList", bookingService.findAllBookingsOfAllUsers());
+			session.setAttribute("errormsg", "Please make sure you are only cancelling the Bookings of the future!");
+			return "showAllBookings";
+		}
+	}
+	
 
 }

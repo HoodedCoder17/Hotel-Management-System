@@ -110,7 +110,9 @@ public class BookingServiceImpl implements BookingService {
 						bookingDetail.getCheckOutDate(), bookingDetail.getNoOfGuests(),
 						bookingDetail.getBillingDetails().getBillingId(),
 						bookingDetail.getBillingDetails().getTotalAmount(),
-						bookingDetail.getBillingDetails().getPaymentDate()));
+						bookingDetail.getBillingDetails().getPaymentDate(), bookingDetail.getUser().getUserName(),
+						bookingDetail.getUser().getFirstName() + " " + bookingDetail.getUser().getLastName(),
+						bookingDetail.getStatus() ? "Active" : "Cancelled"));
 			}
 		}
 		return BookingDtoList;
@@ -137,10 +139,29 @@ public class BookingServiceImpl implements BookingService {
 	public Long fetchAmountOfBookingsByUserId(Long userId) {
 		return bookingDetailsRepository.fetchAmountOfBookingsByUserId(userId);
 	}
-	
+
 	@Override
 	public Long fetchBookingValueByUserId(Long userId) {
 		return bookingDetailsRepository.fetchBookingValueByUserId(userId);
+	}
+
+	@Override
+	public ArrayList<BookingDto> findAllBookingsOfAllUsers() {
+		ArrayList<BookingDto> BookingDtoList = new ArrayList<BookingDto>();
+		ArrayList<BookingDetails> bookingDetailsOfLoggedInUser = (ArrayList<BookingDetails>) bookingDetailsRepository
+				.findAllByOrderByCheckInDate();
+		for (BookingDetails bookingDetail : bookingDetailsOfLoggedInUser) {
+			BookingDtoList.add(new BookingDto(bookingDetail.getBookingId(), bookingDetail.getRoom().getRoomNumber(),
+					bookingDetail.getRoom().getRoomDefinition().getRoomCode(),
+					bookingDetail.getRoom().getRoomDefinition().getRoomType(), bookingDetail.getCheckInDate(),
+					bookingDetail.getCheckOutDate(), bookingDetail.getNoOfGuests(),
+					bookingDetail.getBillingDetails().getBillingId(),
+					bookingDetail.getBillingDetails().getTotalAmount(),
+					bookingDetail.getBillingDetails().getPaymentDate(), bookingDetail.getUser().getUserName(),
+					bookingDetail.getUser().getFirstName() + " " + bookingDetail.getUser().getLastName(),
+					bookingDetail.getStatus() ? "Active" : "Cancelled"));
+		}
+		return BookingDtoList;
 	}
 
 }
