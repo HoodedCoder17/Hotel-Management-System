@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>La Casa - Management</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style>
+		body {
+			background-color: #f8f9fa;
+			padding: 20px;
+		}
+
+		h1 {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		.book-now-button {
+			background-color: #007bff;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			font-size: 18px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		.book-now-button:hover {
+			background-color: #0069d9;
+		}
+
+		.feature-block {
+			background-color: #ffffff;
+			border-radius: 5px;
+			padding: 30px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			margin-bottom: 30px;
+			transition: box-shadow 0.3s ease;
+			cursor: pointer;
+		}
+
+		.feature-block:hover {
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+		}
+
+		.feature-block h3 {
+			margin-top: 0;
+		}
+
+		.card-custom {
+			height: 400px;
+		}
+		
+	</style>
+</head>
+
+<body>
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/LaCasa.com/home">La Casa</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/LaCasa.com/profile">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/LaCasa.com/search">Book Now</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/LaCasa.com/logout">Logout</a>
+				</li>
+				<div sec:authorize="hasRole('ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link active" href="/LaCasa.com/manage">Manage</a>
+					</li>
+				</div>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- Main content -->
+	<!-- Main content -->
+	<div class="my-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Management Console for Admins</h1>
+				</div>
+			</div>
+
+			<div class="row mt-4">
+				<div class="col-lg-4 col-md-6">
+					<a href="/LaCasa.com/manage/users" class="card-link card-custom">
+						<div class="card text-white bg-primary mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Manage Users</h5>
+								<p class="card-text">View and manage all registered users.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<a href="/LaCasa.com/manage/bookings" class="card-link card-custom">
+						<div class="card text-white bg-success mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Manage Bookings</h5>
+								<p class="card-text">View and manage all bookings made by the users.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<a href="/LaCasa.com/manage/rooms" class="card-link card-custom">
+						<div class="card text-white bg-danger mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Manage Rooms</h5>
+								<p class="card-text">View and manage all available rooms.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<a href="/LaCasa.com/manage/services" class="card-link card-custom">
+						<div class="card text-white bg-warning mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Manage Services</h5>
+								<p class="card-text">View and manage all available services.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<a href="/LaCasa.com/manage/payments" class="card-link card-custom">
+						<div class="card text-white bg-info mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Manage Payments</h5>
+								<p class="card-text">View and manage all payment transactions.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<div class="col-lg-4 col-md-6">
+					<a href="/LaCasa.com/manage/reviews" class="card-link card-custom">
+						<div class="card text-white bg-secondary mb-3">
+							<div class="card-body">
+								<h5 class="card-title">Manage Reviews</h5>
+								<p class="card-text">View and manage all user reviews.</p>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+</html>
