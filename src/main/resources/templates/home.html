@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
- xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -56,10 +55,10 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/LaCasa.com/logout">Logout</a>
 				</li>
-				<div sec:authorize="hasRole('ROLE_ADMIN')">
-				 <li class="nav-item">
-                    <a class="nav-link" href="#">Manage</a>
-                </li>
+				<div sec:authorize="hasRole('ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="/LaCasa.com/manage">Manage</a>
+					</li>
 				</div>
 			</ul>
 		</div>

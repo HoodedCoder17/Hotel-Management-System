@@ -12,13 +12,21 @@ import com.hms.entities.User;
 
 @Transactional
 public interface BookingDetailsRepository extends JpaRepository<BookingDetails, Long> {
-	
+
 	ArrayList<BookingDetails> findByUser(User user);
-	
+
 	BookingDetails findByBookingId(Long bookingId);
-	
+
 	@Modifying
 	@Query("UPDATE BookingDetails BD set status = false where BD.bookingId = ?1 ")
 	void cancelBooking(Long bookingId);
 
+	@Query("SELECT COUNT(BD.bookingId) FROM BookingDetails BD JOIN BillingDetails BID ON BD.billingDetails = BID.billingId "
+			+ "JOIN User U ON U.userId = BD.user where U.userId = ?1 ")
+	Long fetchAmountOfBookingsByUserId(Long UserId);
+	
+	@Query("SELECT SUM(BID.totalAmount) FROM BookingDetails BD JOIN BillingDetails BID ON BD.billingDetails = BID.billingId "
+			+ "JOIN User U ON U.userId = BD.user where U.userId = ?1 ")
+	Long fetchBookingValueByUserId(Long UserId);
+	
 }

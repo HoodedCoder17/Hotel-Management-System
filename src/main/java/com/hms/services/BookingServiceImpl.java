@@ -105,7 +105,8 @@ public class BookingServiceImpl implements BookingService {
 		for (BookingDetails bookingDetail : bookingDetailsOfLoggedInUser) {
 			if (bookingDetail.getStatus() != false) {
 				BookingDtoList.add(new BookingDto(bookingDetail.getBookingId(), bookingDetail.getRoom().getRoomNumber(),
-						bookingDetail.getRoom().getRoomDefinition().getRoomCode(), bookingDetail.getCheckInDate(),
+						bookingDetail.getRoom().getRoomDefinition().getRoomCode(),
+						bookingDetail.getRoom().getRoomDefinition().getRoomType(), bookingDetail.getCheckInDate(),
 						bookingDetail.getCheckOutDate(), bookingDetail.getNoOfGuests(),
 						bookingDetail.getBillingDetails().getBillingId(),
 						bookingDetail.getBillingDetails().getTotalAmount(),
@@ -130,6 +131,16 @@ public class BookingServiceImpl implements BookingService {
 	public Boolean checkIfBookingIsInFuture(LocalDate checkInDate) {
 		LocalDate now = LocalDate.now();
 		return checkInDate.isAfter(now);
+	}
+
+	@Override
+	public Long fetchAmountOfBookingsByUserId(Long userId) {
+		return bookingDetailsRepository.fetchAmountOfBookingsByUserId(userId);
+	}
+	
+	@Override
+	public Long fetchBookingValueByUserId(Long userId) {
+		return bookingDetailsRepository.fetchBookingValueByUserId(userId);
 	}
 
 }

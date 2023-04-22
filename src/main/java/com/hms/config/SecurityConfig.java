@@ -50,10 +50,9 @@ public class SecurityConfig extends WebSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/about/**",
-				"/js/**", "/css/**", "/img/**", "/resources/**").permitAll()
-				.requestMatchers("/**").authenticated()
-				 .requestMatchers("/rooms").hasAuthority("USER") 
-				 .requestMatchers("/search**").hasAnyAuthority("ADMIN","USER")
+				"/js/**", "/css/**", "/img/**", "/resources/**","/static/**").permitAll()
+				.requestMatchers("/home","/profile","/search","/bookings/**","**.jpg").authenticated()
+				 .requestMatchers("/manage/**").hasAuthority("ADMIN") 
 				).httpBasic().disable().formLogin()
 				.loginPage("/signin").loginProcessingUrl("/process-signin").defaultSuccessUrl("/home").permitAll()
 				.failureHandler(new MyAuthenticationFailureHandler()).and()
@@ -63,12 +62,6 @@ public class SecurityConfig extends WebSecurityConfiguration {
 		return http.build();
 	}
 
-	/*
-	 * public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	 * System.out.println("In security config 3");
-	 * registry.addResourceHandler("/resources/**").addResourceLocations(
-	 * "/resources/"); }
-	 */
 	@Bean
 	public UserDetailsService userDetailsServiceBean() throws Exception {
 		return new UserServiceImpl();

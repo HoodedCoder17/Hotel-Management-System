@@ -9,6 +9,8 @@ public class BookingDto {
 	private Long roomNumber;
 
 	private String roomCode;
+	
+	private String roomType;
 
 	private LocalDate checkInDate;
 
@@ -31,12 +33,13 @@ public class BookingDto {
 		this.roomNumber = roomNumber;
 	}
 
-	public BookingDto(Long bookingId, Long roomNumber, String roomCode, LocalDate checkInDate, LocalDate checkOutDate, Long noOfGuests,
+	public BookingDto(Long bookingId, Long roomNumber, String roomCode, String roomType, LocalDate checkInDate, LocalDate checkOutDate, Long noOfGuests,
 			Long billingId, Long totalAmount, LocalDate paymentDate) {
 		super();
 		this.bookingId = bookingId;
 		this.roomNumber = roomNumber;
 		this.roomCode = roomCode;
+		this.roomType = roomType;
 		this.checkInDate = checkInDate;
 		this.checkOutDate = checkOutDate;
 		this.noOfGuests = noOfGuests;
@@ -67,6 +70,14 @@ public class BookingDto {
 
 	public void setRoomCode(String roomCode) {
 		this.roomCode = roomCode;
+	}
+	
+	public String getRoomType() {
+		return roomType;
+	}
+
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
 	}
 
 	public LocalDate getCheckInDate() {
@@ -120,7 +131,7 @@ public class BookingDto {
 	@Override
 	public String toString() {
 		return "BookingDto [bookingId=" + bookingId + ", roomNumber=" + roomNumber + ", roomCode=" + roomCode
-				+ ", checkInDate=" + checkInDate + ", checkOutDate=" + checkOutDate + ", noOfGuests=" + noOfGuests
+				+ ", roomType" + roomType + ", checkInDate=" + checkInDate + ", checkOutDate=" + checkOutDate + ", noOfGuests=" + noOfGuests
 				+ ", billingId=" + billingId + ", totalAmount=" + totalAmount + ", paymentDate=" + paymentDate + "]";
 	}
 

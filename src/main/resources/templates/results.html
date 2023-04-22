@@ -143,6 +143,7 @@
 					<h3 th:text="${room.roomType}"></h3>
 					<p th:text="${room.description}"></p>
 					<p th:text="'Price: $' + ${room.price} + '/night'"></p>
+					<p th:text="'Number of Guests: ' + ${room.maxGuests} + '/Room'"></p>
 				</div>
 				<div class="book-now-container">
 					<a th:href="@{/bookings/book(roomNumber=${#lists.size(roomDto) > 1 ? room.roomNumber : roomDto.roomNumber})}"
