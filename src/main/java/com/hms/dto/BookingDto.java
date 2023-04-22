@@ -23,6 +23,12 @@ public class BookingDto {
 	private Long totalAmount;
 
 	private LocalDate paymentDate;
+	
+	private String userName;
+	
+	private String userFullName;
+	
+	private String bookingStatus;
 
 	public BookingDto() {
 		super();
@@ -34,7 +40,7 @@ public class BookingDto {
 	}
 
 	public BookingDto(Long bookingId, Long roomNumber, String roomCode, String roomType, LocalDate checkInDate, LocalDate checkOutDate, Long noOfGuests,
-			Long billingId, Long totalAmount, LocalDate paymentDate) {
+			Long billingId, Long totalAmount, LocalDate paymentDate, String userName, String userFullName, String bookingStatus) {
 		super();
 		this.bookingId = bookingId;
 		this.roomNumber = roomNumber;
@@ -46,6 +52,9 @@ public class BookingDto {
 		this.billingId = billingId;
 		this.totalAmount = totalAmount;
 		this.paymentDate = paymentDate;
+		this.userName = userName;
+		this.userFullName = userFullName;
+		this.bookingStatus = bookingStatus;
 	}
 
 	public Long getBookingId() {
@@ -128,11 +137,37 @@ public class BookingDto {
 		this.paymentDate = paymentDate;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserFullName() {
+		return userFullName;
+	}
+
+	public void setUserFullName(String userFullName) {
+		this.userFullName = userFullName;
+	}
+	
+	public String getBookingStatus() {
+		return bookingStatus;
+	}
+
+	public void setBookingStatus(String bookingStatus) {
+		this.bookingStatus = bookingStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "BookingDto [bookingId=" + bookingId + ", roomNumber=" + roomNumber + ", roomCode=" + roomCode
-				+ ", roomType" + roomType + ", checkInDate=" + checkInDate + ", checkOutDate=" + checkOutDate + ", noOfGuests=" + noOfGuests
-				+ ", billingId=" + billingId + ", totalAmount=" + totalAmount + ", paymentDate=" + paymentDate + "]";
+				+ ", roomType=" + roomType + ", checkInDate=" + checkInDate + ", checkOutDate=" + checkOutDate
+				+ ", noOfGuests=" + noOfGuests + ", billingId=" + billingId + ", totalAmount=" + totalAmount
+				+ ", paymentDate=" + paymentDate + ", userName=" + userName + ", userFullName=" + userFullName
+				+ ", bookingStatus=" + bookingStatus + "]";
 	}
 
 }

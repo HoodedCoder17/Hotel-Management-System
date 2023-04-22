@@ -14,6 +14,8 @@ import com.hms.entities.User;
 public interface BookingDetailsRepository extends JpaRepository<BookingDetails, Long> {
 
 	ArrayList<BookingDetails> findByUser(User user);
+	
+	ArrayList<BookingDetails> findAllByOrderByCheckInDate();
 
 	BookingDetails findByBookingId(Long bookingId);
 
