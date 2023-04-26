@@ -24,7 +24,6 @@ public class BookingController {
 
 	@GetMapping("/book")
 	public String showBookingPage(@RequestParam("roomNumber") Long roomNumber, Model model) {
-		System.out.println(roomNumber);
 		RoomDto roomDto = bookingService.setRoomDto(roomNumber);
 		model.addAttribute("roomDto", roomDto);
 		model.addAttribute("bookingDto", new BookingDto(roomNumber));

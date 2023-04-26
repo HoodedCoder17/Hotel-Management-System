@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>La Casa - Select Dates</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		body {
+			background-color: #f8f9fa;
+		}
+
+		html,
+		body {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+
+		.navbar {
+			background-color: #2c3e50;
+		}
+
+		.form-control {
+			background-color: #e6e6e6;
+			border-color: #b18fff;
+			color: #6c757d;
+			font-weight: 500;
+		}
+
+		.form-control:focus {
+			background-color: #fff;
+			border-color: #8b5fff;
+			color: #495057;
+			box-shadow: none;
+		}
+
+		.btn-primary {
+			background-color: #8b5fff;
+			border-color: #8b5fff;
+			font-weight: 500;
+		}
+
+		.btn-primary:hover {
+			background-color: #b18fff;
+			border-color: #b18fff;
+		}
+
+		.form-label {
+			font-weight: 500;
+		}
+
+		.form-check-input {
+			margin-right: 10px;
+		}
+
+		.error-message {
+			color: red;
+			margin-top: 5px;
+			margin-bottom: 0;
+			font-size: 14px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<a class="navbar-brand text-light" href="/LaCasa.com/home">La Casa</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/manage/rooms">Manage Rooms</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container mt-4">
+		<h2>Confirm Maintainence Details</h2>
+		<div class="row mt-4">
+			<div class="col-md-6 mx-auto">
+				<div class="card">
+					<div class="card-header bg-primary text-white">
+						Maintainence Details
+					</div>
+					<div class="error-message" th:if="${error}">
+						<p th:text="${session.errormsg}" th:unless="${session == null}">[...]</p>
+					</div>
+					<div class="card-body">
+						<form
+							th:action="@{/manage/rooms/maintainRoom/roomUnderMaintainence}"
+							th:object="${bookingDto}" method="post">
+							<input type="hidden" th:field="*{roomNumber}" />
+							<div class="form-group row">
+								<label for="maintainenceStartDate" class="col-sm-3 col-form-label">Start Date:</label>
+								<div class="col-sm-9">
+									<input type="date" class="form-control" id="maintainenceStartDate"
+										th:field="*{checkInDate}" required>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="maintainenceEndDate" class="col-sm-3 col-form-label">End Date:</label>
+								<div class="col-sm-9">
+									<input type="date" class="form-control" id="maintainenceEndDate"
+										th:field="*{checkOutDate}" required>
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-12 text-center">
+									<button type="submit" class="btn btn-primary btn-lg mr-3">Submit</button>
+									<button type="reset" class="btn btn-secondary btn-lg">Reset</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

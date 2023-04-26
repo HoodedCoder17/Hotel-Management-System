@@ -17,7 +17,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
 			AuthenticationException exception) throws IOException, ServletException {
 		//super.onAuthenticationFailure(request, response, exception);
 		
-		System.out.println("A failed login attempt, Reason: " + exception.getMessage());
 		request.setAttribute("errormsg", exception.getMessage());
 		String redirectUrl = request.getContextPath() + "/signin?error=true";
         response.sendRedirect(redirectUrl);
