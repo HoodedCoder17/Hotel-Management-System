@@ -30,21 +30,18 @@ public class RegistrationController {
 	public String showRegistrationForm(WebRequest request, Model model) {
 		UserDto userDto = new UserDto();
 		model.addAttribute("user", userDto);
-		System.out.println("In Register getMapping");
 		return "register";
 	}
 
 	@PostMapping("/register")
-	public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result, HttpServletRequest request,
-			Errors errors) {
+	public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result,
+			HttpServletRequest request, Errors errors) {
 
 		ModelAndView mav = new ModelAndView();
-		
-		System.out.println("In Register postMapping"+userDto.toString());
-		
+
 		if (result.hasErrors()) {
-		    return "register";
-		  }
+			return "register";
+		}
 
 		try {
 			User registered = userService.registerNewUserAccount(userDto);

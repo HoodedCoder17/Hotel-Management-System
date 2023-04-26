@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>La Casa - Management</title>
+	<title>La Casa - Room Management</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -56,7 +56,6 @@
 		.card-custom {
 			height: 400px;
 		}
-		
 	</style>
 </head>
 
@@ -70,19 +69,14 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="/LaCasa.com/profile">Profile</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/LaCasa.com/search">Book Now</a>
+					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/LaCasa.com/logout">Logout</a>
+					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
 				</li>
-				<div sec:authorize="hasRole('ADMIN')">
-					<li class="nav-item">
-						<a class="nav-link active" href="/LaCasa.com/manage">Manage</a>
-					</li>
-				</div>
 			</ul>
 		</div>
 	</nav>
@@ -93,81 +87,46 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h1>Management Console for Admins</h1>
+					<h1>Room Management Console for Admins</h1>
 				</div>
 			</div>
 
 			<div class="row mt-4">
 				<div class="col-lg-4 col-md-6">
-					<a href="/LaCasa.com/manage/users" class="card-link card-custom">
-						<div class="card text-white bg-primary mb-3">
-							<div class="card-body">
-								<h5 class="card-title">Manage Users</h5>
-								<p class="card-text">View and manage all registered users.</p>
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<div class="col-lg-4 col-md-6">
-					<a href="/LaCasa.com/manage/bookings" class="card-link card-custom">
+					<a href="/LaCasa.com/manage/rooms/addRoom" class="card-link card-custom">
 						<div class="card text-white bg-success mb-3">
 							<div class="card-body">
-								<h5 class="card-title">Manage Bookings</h5>
-								<p class="card-text">View and manage all bookings made by the users.</p>
+								<h5 class="card-title">Add Room</h5>
+								<p class="card-text">Add a new room to your property. Provide details such as room type, price, and availability to attract potential guests.</p>
 							</div>
 						</div>
 					</a>
 				</div>
 
 				<div class="col-lg-4 col-md-6">
-					<a href="/LaCasa.com/manage/rooms" class="card-link card-custom">
+					<a href="/LaCasa.com/manage/rooms/decommissionRoom" class="card-link card-custom">
 						<div class="card text-white bg-danger mb-3">
 							<div class="card-body">
-								<h5 class="card-title">Manage Rooms</h5>
-								<p class="card-text">View and manage all available rooms.</p>
+								<h5 class="card-title">Decommision Room</h5>
+								<p class="card-text">Decide to decommission a room if it needs repairs or is no longer available.</p>
 							</div>
 						</div>
 					</a>
 				</div>
-
-				<!--<div class="col-lg-4 col-md-6">
-					<a href="/LaCasa.com/manage/services" class="card-link card-custom">
-						<div class="card text-white bg-warning mb-3">
-							<div class="card-body">
-								<h5 class="card-title">Manage Services</h5>
-								<p class="card-text">View and manage all available services.</p>
-							</div>
-						</div>
-					</a>
-				</div>
-
+				
 				<div class="col-lg-4 col-md-6">
-					<a href="/LaCasa.com/manage/payments" class="card-link card-custom">
-						<div class="card text-white bg-info mb-3">
+					<a href="/LaCasa.com/manage/rooms/maintainRoom" class="card-link card-custom">
+						<div class="card text-white bg-primary mb-3">
 							<div class="card-body">
-								<h5 class="card-title">Manage Payments</h5>
-								<p class="card-text">View and manage all payment transactions.</p>
+								<h5 class="card-title">Room Maintainence</h5>
+								<p class="card-text">Use this tool to schedule maintenance work and ensure that your rooms are in top condition for your guests. </p>
 							</div>
 						</div>
 					</a>
 				</div>
-
-				<div class="col-lg-4 col-md-6">
-					<a href="/LaCasa.com/manage/reviews" class="card-link card-custom">
-						<div class="card text-white bg-secondary mb-3">
-							<div class="card-body">
-								<h5 class="card-title">Manage Reviews</h5>
-								<p class="card-text">View and manage all user reviews.</p>
-							</div>
-						</div>
-					</a>
-				</div>-->
 			</div>
-
 		</div>
 	</div>
-
 </body>
 
 </html>

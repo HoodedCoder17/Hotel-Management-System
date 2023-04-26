@@ -1,5 +1,6 @@
 package com.hms.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -32,17 +33,26 @@ public class Room {
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<BookingDetails> bookingDetailsList;
-
+    
+    //Status will be set to 'F' when room is Functional, status is 'M' when room is under maintenance and it is 'D' when Room is Decommisioned.
+    @Column(name = "status", length = 3)
+    private String status;
+    
+    @Column(name = "maintainence_start_date")
+    private LocalDate maintainenceStartDate;
+    
+    @Column(name = "maintainence_end_date")
+    private LocalDate maintainenceEndDate;
+    
     // constructors, getters, and setters
 
     public Room() {}
 
-    public Room(Long roomId, Long roomNumber, RoomDefinition roomDefinition, List<BookingDetails> bookingDetailsList) {
+    public Room(Long roomNumber, RoomDefinition roomDefinition, String status) {
 		super();
-		this.roomId = roomId;
 		this.roomNumber = roomNumber;
 		this.roomDefinition = roomDefinition;
-		this.bookingDetailsList = bookingDetailsList;
+		this.status = status;
 	}
 
 	public Long getRoomId() {
@@ -76,11 +86,29 @@ public class Room {
     public void setBookingDetailsList(List<BookingDetails> bookingDetailsList) {
         this.bookingDetailsList = bookingDetailsList;
     }
-
-	@Override
-	public String toString() {
-		return "Room [roomId=" + roomId + ", roomNumber=" + roomNumber + ", roomDefinition=" + roomDefinition
-				+ ", bookingDetailsList=" + bookingDetailsList + "]";
-	}
     
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public LocalDate getMaintainenceStartDate() {
+		return maintainenceStartDate;
+	}
+
+	public void setMaintainenceStartDate(LocalDate maintainenceStartDate) {
+		this.maintainenceStartDate = maintainenceStartDate;
+	}
+
+	public LocalDate getMaintainenceEndDate() {
+		return maintainenceEndDate;
+	}
+
+	public void setMaintainenceEndDate(LocalDate maintainenceEndDate) {
+		this.maintainenceEndDate = maintainenceEndDate;
+	}
+   
 }

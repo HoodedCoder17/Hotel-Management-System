@@ -73,5 +73,9 @@ public class AdminActivitiesController {
 		}
 	}
 	
-
+	@GetMapping(path = "/manage/rooms")
+	public String showRoomManagementPage(Model model) {
+		return "manageRooms";
+	}
+	
 }

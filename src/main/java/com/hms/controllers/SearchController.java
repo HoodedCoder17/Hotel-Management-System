@@ -38,7 +38,6 @@ public class SearchController {
 			HttpServletRequest request, HttpServletResponse response, Errors errors, Model model) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		model.addAttribute("roomTypes", searchService.fetchRoomDefinitions());
-		System.out.println("SearchParameterDTO object in POST method of search " + search.toString());
 		if (result.hasErrors()) {
 			mav.setViewName("search");
 			mav.addObject("roomTypes", searchService.fetchRoomDefinitions());
