@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>La Casa - Change Room Price</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		body {
+			background-color: #f8f9fa;
+		}
+
+		html,
+		body {
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+
+		.navbar {
+			background-color: #2c3e50;
+		}
+
+		.form-control {
+			background-color: #e6e6e6;
+			border-color: #b18fff;
+			color: #6c757d;
+			font-weight: 500;
+		}
+
+		.form-control:focus {
+			background-color: #fff;
+			border-color: #8b5fff;
+			color: #495057;
+			box-shadow: none;
+		}
+
+		.btn-primary {
+			background-color: #8b5fff;
+			border-color: #8b5fff;
+			font-weight: 500;
+		}
+
+		.btn-primary:hover {
+			background-color: #b18fff;
+			border-color: #b18fff;
+		}
+
+		#form-container .error-message {
+			color: red;
+			margin-top: 5px;
+			margin-bottom: 0;
+			font-size: 14px;
+		}
+
+		.search-result {
+			border: 1px solid #8b5fff;
+			padding: 10px;
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.search-result img {
+			max-width: 70%;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+			border-radius: 5px;
+			border: 1px solid #ddd;
+		}
+
+		.search-result-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+
+		.room-details {
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.book-now-container {
+			margin-top: auto;
+			text-align: center;
+		}
+
+		.no-rooms-found {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.no-rooms-found h3 {
+			font-size: 24px;
+			text-align: center;
+			background-color: #f0f0f0;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+	</style>
+	<script>
+		$(document).ready(function () {
+			$('.change-price-btn').on('click', function (e) {
+				e.preventDefault();
+				var newPrice = $('#price').val();
+				console.log(newPrice);
+				var href = $(this).attr('href');
+				href = href.replace('{np}', newPrice);
+				window.location.href = href;
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light">
+		<a class="navbar-brand text-light" href="/LaCasa.com/home">La Casa</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/manage/rooms">Manage Rooms</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="card p-3">
+		<div class="card-body">
+			<h5 class="card-title">Enter Room Price</h5>
+			<form action="/LaCasa.com/manage/rooms/priceChanged" th:object="${priceChangeDto}" method="POST"
+				enctype="utf8">
+				<input type="hidden" th:field="*{roomCode}" th:value="*{roomCode}" />
+				<div class="form-group">
+					<label for="newPrice">Please Enter the desired price</label>
+					<input type="text" class="form-control" id="newPrice" th:field="*{newPrice}" />
+				</div>
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+	</div>
+
+</body>
+
+</html>
