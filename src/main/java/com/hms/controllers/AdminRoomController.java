@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hms.dto.BookingDto;
+import com.hms.dto.PriceChangeDto;
 import com.hms.entities.Room;
 import com.hms.services.RoomService;
 import com.hms.services.SearchService;
@@ -74,5 +75,26 @@ public class AdminRoomController {
 		model.addAttribute("maintainenceStartDate", bookingDto.getCheckInDate());
 		model.addAttribute("maintainenceEndDate", bookingDto.getCheckOutDate());
 		return "roomUnderMaintainence";
+	}
+	
+	@GetMapping(path = "manage/rooms/setPrice")
+	public String showSetPricePage(Model model) {
+		model.addAttribute("roomDtoList", roomService.findAllRoomDefinitions());
+		return "setPrice";
+	}
+	
+	@GetMapping(path = "manage/rooms/changePrice")
+	public String showChangePricePage(@RequestParam("roomCode") String roomCode, Model model) {
+		model.addAttribute("priceChangeDto", new PriceChangeDto(roomCode,(long)0));
+		return "changePrice";
+	}
+	
+	@PostMapping(path = "manage/rooms/priceChanged")
+	public String showPriceChangedPage(@ModelAttribute("priceChangeDto") PriceChangeDto priceChangeDto,
+			Model model) {
+		String roomType = roomService.changePrice(priceChangeDto.getRoomCode(), priceChangeDto.getNewPrice());
+		model.addAttribute("newPrice", priceChangeDto.getNewPrice());
+		model.addAttribute("roomType", roomType);
+		return "priceChanged";
 	}
 }

@@ -58,9 +58,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 	@Modifying
 	@Query(value = "UPDATE Room R SET R.status = 'D' WHERE R.roomNumber = ?1 ")
 	Integer decommissionRoomQuery(Long roomNumber);
-
-	@Modifying
-	@Query(value = "UPDATE Room R SET R.status = 'M', R.maintainenceStartDate = ?2, R.maintainenceEndDate = ?3 "
-			+ "WHERE R.roomNumber = ?1")
-	Integer maintainRoomQuery(Long roomNumber, LocalDate maintainenceStartDate, LocalDate maintainenceEndDate);
+	
+	@Query(value = "SELECT R FROM Room R WHERE R.status = 'M' ")
+	ArrayList<Room> findRoomsWithStatusM();
+	
 }

@@ -1,6 +1,6 @@
 package com.hms.entities;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -38,11 +38,8 @@ public class Room {
     @Column(name = "status", length = 3)
     private String status;
     
-    @Column(name = "maintainence_start_date")
-    private LocalDate maintainenceStartDate;
-    
-    @Column(name = "maintainence_end_date")
-    private LocalDate maintainenceEndDate;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "room")
+    private List<Maintainence> maintainences = new ArrayList<>();
     
     // constructors, getters, and setters
 
@@ -94,21 +91,13 @@ public class Room {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public LocalDate getMaintainenceStartDate() {
-		return maintainenceStartDate;
+
+	public List<Maintainence> getMaintainence() {
+		return  maintainences;
 	}
 
-	public void setMaintainenceStartDate(LocalDate maintainenceStartDate) {
-		this.maintainenceStartDate = maintainenceStartDate;
+	public void setMaintainence(List<Maintainence> maintainences) {
+		this.maintainences = maintainences;
 	}
 
-	public LocalDate getMaintainenceEndDate() {
-		return maintainenceEndDate;
-	}
-
-	public void setMaintainenceEndDate(LocalDate maintainenceEndDate) {
-		this.maintainenceEndDate = maintainenceEndDate;
-	}
-   
 }

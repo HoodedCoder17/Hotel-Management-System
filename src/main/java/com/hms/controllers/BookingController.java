@@ -47,7 +47,8 @@ public class BookingController {
 				&& checkOutDateIsGreaterThanCheckInDate) {
 			bookingService.persistBooking(bookingDto);
 			model.addAttribute("error", false);
-			return "home";
+			model.addAttribute("bookingDto", bookingDto);
+			return "bookingConfirmation";
 		} else if (!roomAvailability) {
 			session.setAttribute("errormsg",
 					"Sorry the room is booked during the given period, please choose some other period!");

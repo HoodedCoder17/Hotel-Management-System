@@ -19,6 +19,10 @@ public interface RoomService {
 
 	ArrayList<RoomDto> findAllRoomDefinitions();
 
-	Boolean maintainRoom(Long roomNumber, LocalDate maintainenceStartDate, LocalDate maintainenceEndDate);
+	void maintainRoom(Long roomNumber, LocalDate maintainenceStartDate, LocalDate maintainenceEndDate);
+	
+	void clearRoomsUnderMaintainence();
+
+	String changePrice(String roomCode, Long newPrice);
 
 }
