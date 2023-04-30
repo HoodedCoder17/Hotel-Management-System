@@ -48,8 +48,6 @@ public class BookingDetails {
 	@Column(name = "status")
 	private Boolean status;
 
-	// constructors, getters, and setters
-
 	public BookingDetails() {
 	}
 

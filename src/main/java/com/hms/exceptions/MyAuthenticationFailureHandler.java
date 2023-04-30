@@ -15,7 +15,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		//super.onAuthenticationFailure(request, response, exception);
 		
 		request.setAttribute("errormsg", exception.getMessage());
 		String redirectUrl = request.getContextPath() + "/signin?error=true";
