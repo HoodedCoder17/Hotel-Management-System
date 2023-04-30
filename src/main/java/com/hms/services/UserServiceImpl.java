@@ -115,7 +115,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
 	@Override
 	public Boolean inactivateUser(Long userId) {
-		return userRepository.inactivateUser(userId) == 1 ? true : false;
+		Long loggedInUserId = fetchUserByUserName(getLoggedInUserName()).getUserId();
+		if (userId.compareTo(loggedInUserId) == 0 ? true : false) {
+			userRepository.inactivateUser(userId);
+			return false;
+		} else {
+			return userRepository.inactivateUser(userId) == 1 ? true : false;
+		}
 	}
 
 	@Override
