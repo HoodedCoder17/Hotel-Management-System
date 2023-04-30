@@ -26,6 +26,7 @@ public class ProfileController {
 		String currentUserName = userService.getLoggedInUserName();
 		UserDto userDto = new UserDto();
 		User loggedInUser = userService.fetchUserByUserName(currentUserName);
+		userDto.setUserId(loggedInUser.getUserId());
 		userDto.setUserName(loggedInUser.getUserName());
 		userDto.setFirstName(loggedInUser.getFirstName());
 		userDto.setLastName(loggedInUser.getLastName());

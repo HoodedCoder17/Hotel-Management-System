@@ -106,6 +106,10 @@
 								<a class="btn btn-primary" href="/LaCasa.com/bookings/showBookings">Check Your
 									Bookings</a>
 							</div>
+							<div class="mt-5 text-center">
+								<a class="btn btn-danger" th:href="@{/manage/users/inactivateUser?userId={uid}(uid=${userDto.userId})}">Inactivate your
+									Account</a>
+							</div>
 						</div>
 					</div>
 				</div>
