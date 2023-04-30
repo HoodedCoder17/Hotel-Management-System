@@ -2,11 +2,11 @@
   {
     "name": "ONE_DAY",
     "type": "java.lang.String",
-    "description": "A description for 'ONE_DAY'"
+    "description": "To store the miiliseconds in a day"
   },
   {
-    "name": "ONE_DAY",
+    "name": "ONE_MINUTE",
     "type": "java.lang.String",
-    "description": "A description for 'ONE_DAY'"
+    "description": "To store the miiliseconds in a minute"
   }
 ]}
