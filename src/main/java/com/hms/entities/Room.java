@@ -41,8 +41,6 @@ public class Room {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "room")
     private List<Maintainence> maintainences = new ArrayList<>();
     
-    // constructors, getters, and setters
-
     public Room() {}
 
     public Room(Long roomNumber, RoomDefinition roomDefinition, String status) {
