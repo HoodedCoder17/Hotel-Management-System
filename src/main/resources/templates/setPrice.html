@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>La Casa</title>
+	<title>La Casa - Change Room Price</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		body {
@@ -105,6 +105,18 @@
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 		}
 	</style>
+	<script>
+		$(document).ready(function () {
+			$('.change-price-btn').on('click', function (e) {
+				e.preventDefault();
+				var newPrice = $('#price').val();
+				console.log(newPrice);
+				var href = $(this).attr('href');
+				href = href.replace('{np}', newPrice);
+				window.location.href = href;
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -117,13 +129,10 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/bookings/showBookings">Your Bookings</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/search">Search Page</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage/rooms">Manage Rooms</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
@@ -132,31 +141,23 @@
 		</div>
 	</nav>
 	<div class="row">
-		<div class="col-md-6 search-result" th:each="room : ${roomDto}">
-			<div th:if="${#lists.size(roomDto) > 1 and room.roomNumber != null or #lists.size(roomDto) == 1 and room.roomNumber != null}"
+		<div class="col-md-6 search-result" th:each="roomDto : ${roomDtoList}">
+			<div th:if="${#lists.size(roomDtoList) > 1 and roomDto.roomCode != null or #lists.size(roomDtoList) == 1 and roomDto.roomCode != null}"
 				class="search-result-container">
-				<img th:src="@{/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
+				<img th:src="@{/{imageUri}(imageUri=${roomDto.imageUrl})}" class="img-fluid">
 				<div class="room-details">
-					<h3 th:text="${room.roomType}"></h3>
-					<p th:text="${room.description}"></p>
-					<p th:text="'Price: $' + ${room.price} + '/night'"></p>
-					<p th:text="'Number of Guests: ' + ${room.maxGuests} + '/Room'"></p>
+					<h3 th:text="${roomDto.roomType}"></h3>
+					<p th:text="'Current Price: $' + ${roomDto.price} + '/night'"></p>
 				</div>
 				<div class="book-now-container">
-					<a th:href="@{/bookings/book(roomNumber=${#lists.size(roomDto) > 1 ? room.roomNumber : roomDto.roomNumber})}"
-						class="btn btn-primary">Book Now</a>
-				</div>
-			</div>
-			<div th:if="${room.roomNumber == null}" class="no-rooms-found">
-				<div class="text-center">
-					<h2 class="mb-3">Oops, no rooms available!</h2>
-					<p class="mb-4">We're sorry, but we couldn't find any rooms available during the dates you
-						specified. Please try a different date range or check back later.</p>
-					<a href="/LaCasa.com/search" class="btn btn-primary">Search Again</a>
+					<a th:href="@{/manage/rooms/changePrice?roomCode={rc}(rc=${roomDto.roomCode})}"
+						class="btn btn-primary change-price-btn">Alter Price</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
+
 </body>
 
 </html>

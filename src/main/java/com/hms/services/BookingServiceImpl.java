@@ -105,11 +105,14 @@ public class BookingServiceImpl implements BookingService {
 		for (BookingDetails bookingDetail : bookingDetailsOfLoggedInUser) {
 			if (bookingDetail.getStatus() != false) {
 				BookingDtoList.add(new BookingDto(bookingDetail.getBookingId(), bookingDetail.getRoom().getRoomNumber(),
-						bookingDetail.getRoom().getRoomDefinition().getRoomCode(), bookingDetail.getCheckInDate(),
+						bookingDetail.getRoom().getRoomDefinition().getRoomCode(),
+						bookingDetail.getRoom().getRoomDefinition().getRoomType(), bookingDetail.getCheckInDate(),
 						bookingDetail.getCheckOutDate(), bookingDetail.getNoOfGuests(),
 						bookingDetail.getBillingDetails().getBillingId(),
 						bookingDetail.getBillingDetails().getTotalAmount(),
-						bookingDetail.getBillingDetails().getPaymentDate()));
+						bookingDetail.getBillingDetails().getPaymentDate(), bookingDetail.getUser().getUserName(),
+						bookingDetail.getUser().getFirstName() + " " + bookingDetail.getUser().getLastName(),
+						bookingDetail.getStatus() ? "Active" : "Cancelled"));
 			}
 		}
 		return BookingDtoList;
@@ -130,6 +133,35 @@ public class BookingServiceImpl implements BookingService {
 	public Boolean checkIfBookingIsInFuture(LocalDate checkInDate) {
 		LocalDate now = LocalDate.now();
 		return checkInDate.isAfter(now);
+	}
+
+	@Override
+	public Long fetchAmountOfBookingsByUserId(Long userId) {
+		return bookingDetailsRepository.fetchAmountOfBookingsByUserId(userId);
+	}
+
+	@Override
+	public Long fetchBookingValueByUserId(Long userId) {
+		return bookingDetailsRepository.fetchBookingValueByUserId(userId);
+	}
+
+	@Override
+	public ArrayList<BookingDto> findAllBookingsOfAllUsers() {
+		ArrayList<BookingDto> BookingDtoList = new ArrayList<BookingDto>();
+		ArrayList<BookingDetails> bookingDetailsOfLoggedInUser = (ArrayList<BookingDetails>) bookingDetailsRepository
+				.findAllByOrderByCheckInDate();
+		for (BookingDetails bookingDetail : bookingDetailsOfLoggedInUser) {
+			BookingDtoList.add(new BookingDto(bookingDetail.getBookingId(), bookingDetail.getRoom().getRoomNumber(),
+					bookingDetail.getRoom().getRoomDefinition().getRoomCode(),
+					bookingDetail.getRoom().getRoomDefinition().getRoomType(), bookingDetail.getCheckInDate(),
+					bookingDetail.getCheckOutDate(), bookingDetail.getNoOfGuests(),
+					bookingDetail.getBillingDetails().getBillingId(),
+					bookingDetail.getBillingDetails().getTotalAmount(),
+					bookingDetail.getBillingDetails().getPaymentDate(), bookingDetail.getUser().getUserName(),
+					bookingDetail.getUser().getFirstName() + " " + bookingDetail.getUser().getLastName(),
+					bookingDetail.getStatus() ? "Active" : "Cancelled"));
+		}
+		return BookingDtoList;
 	}
 
 }

@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>La Casa - Booking</title>
+	<title>La Casa - Select Dates</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		body {
@@ -73,13 +73,10 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/bookings/showBookings">Your Bookings</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/search">Search Page</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage/rooms">Manage Rooms</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
@@ -89,71 +86,38 @@
 	</nav>
 
 	<div class="container mt-4">
-		<h2>Booking Details</h2>
+		<h2>Confirm Maintainence Details</h2>
 		<div class="row mt-4">
 			<div class="col-md-6 mx-auto">
 				<div class="card">
 					<div class="card-header bg-primary text-white">
-						Room Details
+						Maintainence Details
 					</div>
 					<div class="error-message" th:if="${error}">
 						<p th:text="${session.errormsg}" th:unless="${session == null}">[...]</p>
 					</div>
 					<div class="card-body">
-						<form th:action="@{/bookings/book}" th:object="${bookingDto}" method="post">
-							<input type="hidden" th:field="*{roomNumber}" th:value="${roomDto.roomNumber}" />
-							<div class="form-group row justify-content-center">
+						<form
+							th:action="@{/manage/rooms/maintainRoom/roomUnderMaintainence}"
+							th:object="${bookingDto}" method="post">
+							<input type="hidden" th:field="*{roomNumber}" />
+							<div class="form-group row">
+								<label for="maintainenceStartDate" class="col-sm-3 col-form-label">Start Date:</label>
 								<div class="col-sm-9">
-									<div class="text-center border p-3">
-										<img th:src=@{/{imageUri}(imageUri=${roomDto.imageUrl})} class="img-fluid">
-									</div>
+									<input type="date" class="form-control" id="maintainenceStartDate"
+										th:field="*{checkInDate}" required>
 								</div>
 							</div>
 							<div class="form-group row">
-								<label for="roomType" class="col-sm-3 col-form-label">Room Type:</label>
+								<label for="maintainenceEndDate" class="col-sm-3 col-form-label">End Date:</label>
 								<div class="col-sm-9">
-									<input type="text" class="form-control" id="roomType" th:value="${roomDto.roomType}"
-										readonly>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="description" class="col-sm-3 col-form-label">Description:</label>
-								<div class="col-sm-9">
-									<textarea class="form-control" id="description" rows="3" readonly
-										th:text="${roomDto.description}"></textarea>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="price" class="col-sm-3 col-form-label">Price:</label>
-								<div class="col-sm-9">
-									<input type="text" class="form-control" id="price"
-										th:value="${roomDto.price} + '/night'" readonly>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="guests" class="col-sm-3 col-form-label">Number of Guests:</label>
-								<div class="col-sm-9">
-									<input type="number" class="form-control" id="guests" min="1"
-										th:field="*{noOfGuests}" required>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="checkin" class="col-sm-3 col-form-label">Check-In:</label>
-								<div class="col-sm-9">
-									<input type="date" class="form-control" id="checkin" th:field="*{checkInDate}"
-										required>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="checkout" class="col-sm-3 col-form-label">Check-Out:</label>
-								<div class="col-sm-9">
-									<input type="date" class="form-control" id="checkout" th:field="*{checkOutDate}"
-										required>
+									<input type="date" class="form-control" id="maintainenceEndDate"
+										th:field="*{checkOutDate}" required>
 								</div>
 							</div>
 							<div class="form-group row">
 								<div class="col-sm-12 text-center">
-									<button type="submit" class="btn btn-primary btn-lg mr-3">Book Now</button>
+									<button type="submit" class="btn btn-primary btn-lg mr-3">Submit</button>
 									<button type="reset" class="btn btn-secondary btn-lg">Reset</button>
 								</div>
 							</div>

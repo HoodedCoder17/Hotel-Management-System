@@ -24,7 +24,6 @@ public class BookingController {
 
 	@GetMapping("/book")
 	public String showBookingPage(@RequestParam("roomNumber") Long roomNumber, Model model) {
-		System.out.println(roomNumber);
 		RoomDto roomDto = bookingService.setRoomDto(roomNumber);
 		model.addAttribute("roomDto", roomDto);
 		model.addAttribute("bookingDto", new BookingDto(roomNumber));
@@ -48,7 +47,8 @@ public class BookingController {
 				&& checkOutDateIsGreaterThanCheckInDate) {
 			bookingService.persistBooking(bookingDto);
 			model.addAttribute("error", false);
-			return "home";
+			model.addAttribute("bookingDto", bookingDto);
+			return "bookingConfirmation";
 		} else if (!roomAvailability) {
 			session.setAttribute("errormsg",
 					"Sorry the room is booked during the given period, please choose some other period!");
