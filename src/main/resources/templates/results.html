@@ -143,7 +143,7 @@
 					<p th:text="'Number of Guests: ' + ${room.maxGuests} + '/Room'"></p>
 				</div>
 				<div class="book-now-container">
-					<a th:href="@{/bookings/book(roomNumber=${#lists.size(roomDto) > 1 ? room.roomNumber : roomDto.roomNumber})}"
+					<a th:href="@{/bookings/book(roomNumber=${room.roomNumber})}"
 						class="btn btn-primary">Book Now</a>
 				</div>
 			</div>

@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/about/**",
 				"/js/**", "/css/**", "/img/**", "/resources/**","/static/**","/userRestrictedPage.html","**.jpg").permitAll()
-				.requestMatchers("/home","/profile","/search","/bookings/**").authenticated()
+				.requestMatchers("/home","/profile","/search","/bookings/**","/manage/users/inactivateUser").authenticated()
 				 .requestMatchers("/manage/**").hasAuthority("ADMIN") 
 				).httpBasic().disable().formLogin()
 				.loginPage("/signin").loginProcessingUrl("/process-signin").defaultSuccessUrl("/home").permitAll()

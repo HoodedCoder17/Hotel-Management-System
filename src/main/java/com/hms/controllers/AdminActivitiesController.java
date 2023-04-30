@@ -41,10 +41,15 @@ public class AdminActivitiesController {
 	}
 
 	@GetMapping(path = "/manage/users/inactivateUser")
-	public String showUserInactivatedPage(@RequestParam("userId") Long userId, Model model) {
+	public String showUserInactivatedPage(@RequestParam("userId") Long userId, Model model, HttpSession session) {
 		model.addAttribute("userId", userId);
-		userService.inactivateUser(userId);
-		return "userInactivated";
+		if(userService.inactivateUser(userId)) {
+			return "userInactivated";
+		}  else {
+			model.addAttribute("user", new UserDto());
+			session.setAttribute("errormsg", "Your Account is deactivated successfully, Re-directed to Login page");
+			return "signin";
+		}
 	}
 	
 	@GetMapping(path = "/manage/users/activateUser")
