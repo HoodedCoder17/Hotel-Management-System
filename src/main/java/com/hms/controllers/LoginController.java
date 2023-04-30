@@ -26,10 +26,8 @@ public class LoginController {
 		String error = "";
 		if (exception instanceof BadCredentialsException) {
 			error = "Invalid username and password!";
-		} else if (exception instanceof LockedException) {
-			error = exception.getMessage();
 		} else {
-			error = "Invalid username and password!";
+			error = exception != null ? exception.getMessage() : "Invalid username and password combo, or the Account doesn't exist, Please register!";
 		}
 		return error;
 	}

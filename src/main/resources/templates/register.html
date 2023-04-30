@@ -84,6 +84,10 @@
 			margin-bottom: 0;
 			font-size: 14px;
 		}
+
+		label {
+			display: inline-block;
+		}
 	</style>
 </head>
 
@@ -147,6 +151,10 @@
 					</label>
 					<div class="error-message" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
 				</div>
+			</div>
+			<div>
+				<input type="checkbox" id="terms" name="terms" required>
+				<label for="terms">I agree to La Casa's Terms of Use</label>
 			</div>
 			<button type="submit" for="Submit">Submit</button>
 		</form>
