@@ -28,8 +28,6 @@ public class RoomDefinition {
 	@Column(name = "image_url")
 	private String imageUrl;
 
-	// constructors, getters, and setters
-
 	public RoomDefinition() {
 	}
 

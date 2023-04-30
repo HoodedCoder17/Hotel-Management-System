@@ -37,7 +37,7 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 						'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ',', '@', '#', '$', '!', '*' }),
 				new WhitespaceRule(), new CharacterRule(EnglishCharacterData.Digit),
 				new CharacterRule(EnglishCharacterData.Special),
-				new CharacterRule(EnglishCharacterData.Alphabetical,4)));
+				new CharacterRule(EnglishCharacterData.Alphabetical, 4)));
 
 		RuleResult result = validator.validate(new PasswordData(password));
 		if (result.isValid()) {
@@ -45,13 +45,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 		} else {
 			return false;
 		}
-
-		/*
-		 * context.disableDefaultConstraintViolation();
-		 * context.buildConstraintViolationWithTemplate(context.
-		 * getDefaultConstraintMessageTemplate())
-		 * .addPropertyNode("password").addConstraintViolation(); return false;
-		 */
 
 	}
 }

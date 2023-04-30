@@ -28,8 +28,6 @@ public class BillingDetails {
     @OneToOne(mappedBy = "billingDetails")
     private BookingDetails bookingDetails;
 
-    // constructors, getters, and setters
-
     public BillingDetails() {}
 
     public BillingDetails(Long totalAmount, LocalDate paymentDate) {
