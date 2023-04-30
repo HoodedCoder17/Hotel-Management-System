@@ -36,5 +36,11 @@ public interface BookingService {
 	Boolean cancelBooking(Long bookingId);
 	
 	Boolean checkIfBookingIsInFuture(LocalDate checkInDate);
+	
+	Long fetchAmountOfBookingsByUserId(Long userId);
+	
+	Long fetchBookingValueByUserId(Long userId);
+	
+	ArrayList<BookingDto> findAllBookingsOfAllUsers();
 
 }

@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Show Bookings</title>
+	<title>All Bookings</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
 		body {
@@ -106,7 +106,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/search">Book Now</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
@@ -122,11 +122,13 @@
 		<div class="error-message" th:if="${error}">
 			<p th:text="${session.errormsg}" th:unless="${session == null}">[...]</p>
 		</div>
-		<h1>Your Bookings</h1>
+		<h1>All Bookings</h1>
 		<table class="table mt-4">
 			<thead>
 				<tr>
 					<th>Booking ID</th>
+					<th>User Name</th>
+					<th>User Full Name</th>
 					<th>Room Type</th>
 					<th>Room Number</th>
 					<th>Check-in Date</th>
@@ -134,12 +136,15 @@
 					<th>No. of Guests</th>
 					<th>Total Amount</th>
 					<th>Payment Date</th>
+					<th>Booking Status</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="booking : ${BookingDtoList}">
 					<td th:text="${booking.bookingId}"></td>
+					<td th:text="${booking.userName}"></td>
+					<td th:text="${booking.userFullName}"></td>
 					<td th:text="${booking.roomType}"></td>
 					<td th:text="${booking.roomNumber}"></td>
 					<td th:text="${booking.checkInDate}"></td>
@@ -147,9 +152,11 @@
 					<td th:text="${booking.noOfGuests}"></td>
 					<td th:text="${booking.totalAmount}"></td>
 					<td th:text="${booking.paymentDate}"></td>
+					<td th:text="${booking.bookingStatus}"></td>
 					<td>
-						<a th:href="@{/bookings/cancelled?bookingId={bid}(bid=${booking.bookingId})}" class="btn btn-danger"
-							onclick="return confirm('Are you sure you want to cancel this booking?');">Cancel</a>
+						<a th:href="@{bookings/cancelled?bookingId={bid}(bid=${booking.bookingId})}" class="btn btn-danger"
+							onclick="return confirm('Are you sure you want to cancel this booking?');"
+							th:if="${booking.bookingStatus == 'Active'}">Cancel</a>
 					</td>
 				</tr>
 			</tbody>

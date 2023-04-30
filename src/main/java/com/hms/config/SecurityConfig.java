@@ -12,30 +12,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
+import com.hms.entities.CustomAccessDeniedHandler;
 import com.hms.exceptions.MyAuthenticationFailureHandler;
 import com.hms.services.UserServiceImpl;
-
-import jakarta.annotation.PostConstruct;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfiguration {
 
-	/*
-	 * @Autowired private UserService userService;
-	 */
-
-	@PostConstruct
-	public void postConstruct() {
-		System.out.println("SecurityConfig bean has been constructed");
-	}
-
 	@Bean
 	public DaoAuthenticationProvider authProvider() throws Exception {
-		System.out.println("In security config 1");
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-		/* authProvider.setUserDetailsService((UserDetailsService) userService); */
 		authProvider.setUserDetailsService(userDetailsServiceBean());
 		authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
 		return authProvider;
@@ -43,35 +32,32 @@ public class SecurityConfig extends WebSecurityConfiguration {
 
 	@Bean
 	public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-		System.out.println("In security config 2");
 		return http.getSharedObject(AuthenticationManagerBuilder.class).authenticationProvider(authProvider()).build();
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/about/**",
-				"/js/**", "/css/**", "/img/**", "/resources/**").permitAll()
-				.requestMatchers("/**").authenticated()
-				 .requestMatchers("/rooms").hasAuthority("USER") 
-				 .requestMatchers("/search**").hasAnyAuthority("ADMIN","USER")
+				"/js/**", "/css/**", "/img/**", "/resources/**","/static/**","/userRestrictedPage.html","**.jpg").permitAll()
+				.requestMatchers("/home","/profile","/search","/bookings/**").authenticated()
+				 .requestMatchers("/manage/**").hasAuthority("ADMIN") 
 				).httpBasic().disable().formLogin()
 				.loginPage("/signin").loginProcessingUrl("/process-signin").defaultSuccessUrl("/home").permitAll()
 				.failureHandler(new MyAuthenticationFailureHandler()).and()
-
-				.authenticationManager(authManager(http)).csrf().disable();
-		System.out.println("In security config");
+				.authenticationManager(authManager(http)).csrf().disable()
+				/* .exceptionHandling().accessDeniedHandler(accessDeniedHandler()) */
+				 ;
 		return http.build();
 	}
 
-	/*
-	 * public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	 * System.out.println("In security config 3");
-	 * registry.addResourceHandler("/resources/**").addResourceLocations(
-	 * "/resources/"); }
-	 */
 	@Bean
 	public UserDetailsService userDetailsServiceBean() throws Exception {
 		return new UserServiceImpl();
 	}
 
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler(){
+	    return new CustomAccessDeniedHandler();
+	}
+	
 }

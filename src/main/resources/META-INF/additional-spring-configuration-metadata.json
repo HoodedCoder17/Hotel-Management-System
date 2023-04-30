@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "ONE_DAY",
+    "type": "java.lang.String",
+    "description": "To store the miiliseconds in a day"
+  },
+  {
+    "name": "ONE_MINUTE",
+    "type": "java.lang.String",
+    "description": "To store the miiliseconds in a minute"
+  }
+]}

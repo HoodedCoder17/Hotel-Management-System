@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>La Casa</title>
+	<title>La Casa - Decommission Room</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<style>
 		body {
@@ -117,13 +117,13 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/bookings/showBookings">Your Bookings</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-light" href="/LaCasa.com/manage/rooms">Manage Rooms</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/search">Search Page</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
@@ -138,21 +138,13 @@
 				<img th:src="@{/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
 				<div class="room-details">
 					<h3 th:text="${room.roomType}"></h3>
-					<p th:text="${room.description}"></p>
+					<p th:text="'Room Number: ' + ${room.roomNumber}"></p>
 					<p th:text="'Price: $' + ${room.price} + '/night'"></p>
 					<p th:text="'Number of Guests: ' + ${room.maxGuests} + '/Room'"></p>
 				</div>
 				<div class="book-now-container">
-					<a th:href="@{/bookings/book(roomNumber=${#lists.size(roomDto) > 1 ? room.roomNumber : roomDto.roomNumber})}"
-						class="btn btn-primary">Book Now</a>
-				</div>
-			</div>
-			<div th:if="${room.roomNumber == null}" class="no-rooms-found">
-				<div class="text-center">
-					<h2 class="mb-3">Oops, no rooms available!</h2>
-					<p class="mb-4">We're sorry, but we couldn't find any rooms available during the dates you
-						specified. Please try a different date range or check back later.</p>
-					<a href="/LaCasa.com/search" class="btn btn-primary">Search Again</a>
+					<a th:href="@{/manage/rooms/roomDecommissioned?roomNumber={rn}(rn=${room.roomNumber})}"
+						class="btn btn-primary">Decommission Room</a>
 				</div>
 			</div>
 		</div>

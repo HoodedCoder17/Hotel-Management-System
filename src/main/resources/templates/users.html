@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Show Bookings</title>
+	<title>La Casa Users</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<style>
 		body {
@@ -86,7 +86,7 @@
 		.cancel-btn:hover {
 			background-color: #ff4f4f;
 		}
-		
+
 		.error-message {
 			color: red;
 			margin-top: 5px;
@@ -106,7 +106,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link text-light" href="/LaCasa.com/search">Book Now</a>
+					<a class="nav-link text-light" href="/LaCasa.com/manage">Management Console</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
@@ -122,35 +122,45 @@
 		<div class="error-message" th:if="${error}">
 			<p th:text="${session.errormsg}" th:unless="${session == null}">[...]</p>
 		</div>
-		<h1>Your Bookings</h1>
+		<h1>La Casa Users</h1>
 		<table class="table mt-4">
 			<thead>
 				<tr>
-					<th>Booking ID</th>
-					<th>Room Type</th>
-					<th>Room Number</th>
-					<th>Check-in Date</th>
-					<th>Check-out Date</th>
-					<th>No. of Guests</th>
-					<th>Total Amount</th>
-					<th>Payment Date</th>
+					<th>User Name</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Email Id</th>
+					<th>Role</th>
+					<th>Date of Birth</th>
+					<th>No. of Bookings</th>
+					<th>Value of Bookings Done</th>
+					<th>User Status</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="booking : ${BookingDtoList}">
-					<td th:text="${booking.bookingId}"></td>
-					<td th:text="${booking.roomType}"></td>
-					<td th:text="${booking.roomNumber}"></td>
-					<td th:text="${booking.checkInDate}"></td>
-					<td th:text="${booking.checkOutDate}"></td>
-					<td th:text="${booking.noOfGuests}"></td>
-					<td th:text="${booking.totalAmount}"></td>
-					<td th:text="${booking.paymentDate}"></td>
+				<tr th:each="user : ${userDtoList}">
+					<td th:text="${user.userName}"></td>
+					<td th:text="${user.firstName}"></td>
+					<td th:text="${user.lastName}"></td>
+					<td th:text="${user.email}"></td>
+					<td th:text="${user.role}"></td>
+					<td th:text="${user.dateOfBirth}"></td>
+					<td th:text="${user.countOfBookings}"></td>
+					<td th:text="${user.valueOfBookings}"></td>
+					<td th:text="${user.isActive}"></td>
 					<td>
-						<a th:href="@{/bookings/cancelled?bookingId={bid}(bid=${booking.bookingId})}" class="btn btn-danger"
-							onclick="return confirm('Are you sure you want to cancel this booking?');">Cancel</a>
+						<a th:href="@{/manage/users/inactivateUser?userId={uid}(uid=${user.userId})}"
+							class="btn btn-danger"
+							onclick="return confirm('Are you sure you want to Inactivate this User?');"
+							th:if="${user.isActive == 'Active'}">Inactivate</a>
+
+						<a th:href="@{/manage/users/activateUser?userId={uid}(uid=${user.userId})}"
+							class="btn btn-success"
+							onclick="return confirm('Are you sure you want to Activate this User?');"
+							th:if="${user.isActive == 'InActive'}">Activate</a>
 					</td>
+
 				</tr>
 			</tbody>
 		</table>

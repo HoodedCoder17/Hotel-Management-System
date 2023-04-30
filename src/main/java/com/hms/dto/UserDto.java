@@ -12,6 +12,8 @@ import jakarta.validation.constraints.NotNull;
 @PasswordMatches(message = "Passwords do not match!")
 public class UserDto {
 
+	private Long userId;
+	
 	@NotEmpty(message = "User Name field cannot be empty!")
 	private String userName;
 
@@ -36,15 +38,22 @@ public class UserDto {
 
 	@NotNull(message = "Date of Birth has to be provided!")
 	private LocalDate dateOfBirth;
+	
+	private Long countOfBookings;
+	
+	private Long valueOfBookings;
+	
+	private String isActive;
 
 	public UserDto() {
 		super();
 	}
 
-	public UserDto(@NotEmpty String userName, @NotEmpty String firstName, @NotEmpty String lastName,
+	public UserDto(Long userId, @NotEmpty String userName, @NotEmpty String firstName, @NotEmpty String lastName,
 			@NotEmpty String password, String matchingPassword, @NotEmpty String email, @NotNull String role,
-			@NotNull LocalDate dateOfBirth) {
+			@NotNull LocalDate dateOfBirth, Long countOfBookings, Long valueOfBookings, String isActive) {
 		super();
+		this.userId = userId;;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -53,6 +62,17 @@ public class UserDto {
 		this.email = email;
 		this.role = role;
 		this.dateOfBirth = dateOfBirth;
+		this.countOfBookings = countOfBookings;
+		this.valueOfBookings = valueOfBookings;
+		this.isActive = isActive;
+	}
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {
@@ -118,12 +138,37 @@ public class UserDto {
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
+	public Long getCountOfBookings() {
+		return countOfBookings;
+	}
+
+	public void setCountOfBookings(Long countOfBookings) {
+		this.countOfBookings = countOfBookings;
+	}
+
+	public Long getValueOfBookings() {
+		return valueOfBookings;
+	}
+
+	public void setValueOfBookings(Long valueOfBookings) {
+		this.valueOfBookings = valueOfBookings;
+	}
+	
+	public String getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
 
 	@Override
 	public String toString() {
-		return "UserDto [userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
-				+ password + ", matchingPassword=" + matchingPassword + ", email=" + email + ", role=" + role
-				+ ", dateOfBirth=" + dateOfBirth + "]";
+		return "UserDto [userId=" + userId + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", password=" + password + ", matchingPassword=" + matchingPassword + ", email=" + email
+				+ ", role=" + role + ", dateOfBirth=" + dateOfBirth + ", countOfBookings=" + countOfBookings
+				+ ", valueOfBookings=" + valueOfBookings + ", isActive=" + isActive + "]";
 	}
 
 }
