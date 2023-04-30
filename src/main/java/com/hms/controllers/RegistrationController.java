@@ -18,6 +18,7 @@ import com.hms.exceptions.UserAlreadyExistException;
 import com.hms.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -35,7 +36,7 @@ public class RegistrationController {
 
 	@PostMapping("/register")
 	public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result,
-			HttpServletRequest request, Errors errors) {
+			HttpServletRequest request, Errors errors, HttpSession session) {
 
 		ModelAndView mav = new ModelAndView();
 
@@ -47,9 +48,10 @@ public class RegistrationController {
 			User registered = userService.registerNewUserAccount(userDto);
 		} catch (UserAlreadyExistException uaeEx) {
 			mav.addObject("message", "An account for that username/email already exists.");
-			return "/signin";
+			session.setAttribute("errormsg", "Your Registration is complete, please login");
+			return "signin";
 		}
 
-		return "/signin";
+		return "signin";
 	}
 }
