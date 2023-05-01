@@ -13,17 +13,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
-    @Override
-    public void handle(
-      HttpServletRequest request,
-      HttpServletResponse response, 
-      AccessDeniedException exc) throws IOException, ServletException {
-        
-        Authentication auth 
-          = SecurityContextHolder.getContext().getAuthentication();
+	@Override
+	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exc)
+			throws IOException, ServletException {
 
-        response.sendRedirect(request.getContextPath() + "/userRestrictedPage?error=true");
-        return;
-    }
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		response.sendRedirect(request.getContextPath() + "/userRestrictedPage?error=true");
+		return;
+	}
 
 }
