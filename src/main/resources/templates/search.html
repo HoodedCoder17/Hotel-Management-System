@@ -5,7 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>La Casa</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style>
 		body {
 			background-color: #f8f9fa;
@@ -65,12 +68,6 @@
 					<a class="nav-link text-light" href="/LaCasa.com/profile">Profile</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link text-light" href="#">Wishlist</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-light" href="#">Customer Support</a>
-				</li>
-				<li class="nav-item">
 					<a class="nav-link text-light" href="/LaCasa.com/logout">Log out</a>
 				</li>
 			</ul>
@@ -117,17 +114,6 @@
 									<option value="5">More than $15001</option>
 								</select>
 							</div>
-							<!--<div class="form-group">
-								<label for="amenities">Amenities</label>
-								<select class="form-control" id="amenities" th:field="*{amenities}">
-									<option value="">Any</option>
-									<option value="pool">Pool</option>
-									<option value="gym">Gym</option>
-									<option value="spa">Spa</option>
-									<option value="restaurant">Restaurant</option>
-									<option value="bar">Bar</option>
-								</select>
-							</div>-->
 							<button type="submit" class="btn btn-primary">Search</button>
 						</form>
 
