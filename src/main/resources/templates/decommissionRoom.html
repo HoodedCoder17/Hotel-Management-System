@@ -138,7 +138,7 @@
 		<div class="col-md-6 search-result" th:each="room : ${roomDto}">
 			<div th:if="${#lists.size(roomDto) > 1 and room.roomNumber != null or #lists.size(roomDto) == 1 and room.roomNumber != null}"
 				class="search-result-container">
-				<img th:src="@{/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
+				<img th:src="@{https://la-casa-bucket.s3.ap-south-1.amazonaws.com/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
 				<div class="room-details">
 					<h3 th:text="${room.roomType}"></h3>
 					<p th:text="'Room Number: ' + ${room.roomNumber}"></p>

@@ -76,6 +76,8 @@
 				<includes>
 					<include>application.properties</include>
 					<include>application-dev.properties</include>
+					<include>application.properties</include>
+					<include>application-production.properties</include>
 					<include>static/</include>
 					<include>templates/</include>
 				</includes>
