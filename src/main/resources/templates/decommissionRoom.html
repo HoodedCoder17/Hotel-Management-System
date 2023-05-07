@@ -5,7 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>La Casa - Decommission Room</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style>
 		body {
 			background-color: #f8f9fa;
@@ -135,7 +138,7 @@
 		<div class="col-md-6 search-result" th:each="room : ${roomDto}">
 			<div th:if="${#lists.size(roomDto) > 1 and room.roomNumber != null or #lists.size(roomDto) == 1 and room.roomNumber != null}"
 				class="search-result-container">
-				<img th:src="@{/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
+				<img th:src="@{https://la-casa-bucket.s3.ap-south-1.amazonaws.com/{imageUri}(imageUri=${room.imageUrl})}" class="img-fluid">
 				<div class="room-details">
 					<h3 th:text="${room.roomType}"></h3>
 					<p th:text="'Room Number: ' + ${room.roomNumber}"></p>
