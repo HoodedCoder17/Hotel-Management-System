@@ -108,7 +108,7 @@
 							<div class="form-group row justify-content-center">
 								<div class="col-sm-9">
 									<div class="text-center border p-3">
-										<img th:src=@{/{imageUri}(imageUri=${roomDto.imageUrl})} class="img-fluid">
+										<img th:src="@{https://la-casa-bucket.s3.ap-south-1.amazonaws.com/{imageUri}(imageUri=${roomDto.imageUrl})}" class="img-fluid">
 									</div>
 								</div>
 							</div>

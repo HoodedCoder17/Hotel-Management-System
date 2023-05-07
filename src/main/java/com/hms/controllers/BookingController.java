@@ -27,7 +27,6 @@ public class BookingController {
 		RoomDto roomDto = bookingService.setRoomDto(roomNumber);
 		model.addAttribute("roomDto", roomDto);
 		model.addAttribute("bookingDto", new BookingDto(roomNumber));
-		model.addAttribute("S3BucketUrlPrefix", "https://la-casa-bucket.s3.ap-south-1.amazonaws.com");
 		return "book";
 	}
 
@@ -37,7 +36,6 @@ public class BookingController {
 		RoomDto roomDto = bookingService.setRoomDto(bookingDto.getRoomNumber());
 		model.addAttribute("roomDto", roomDto);
 		model.addAttribute("error", true);
-		model.addAttribute("S3BucketUrlPrefix", "https://la-casa-bucket.s3.ap-south-1.amazonaws.com");
 		Boolean roomAvailability = bookingService.checkRoomAvailability(bookingDto.getRoomNumber(),
 				bookingDto.getCheckInDate(), bookingDto.getCheckOutDate());
 		Boolean GuestsWithinRoomLimit = bookingService.checkIfGuestsUnderTheRoomLimits(bookingDto.getNoOfGuests(),
