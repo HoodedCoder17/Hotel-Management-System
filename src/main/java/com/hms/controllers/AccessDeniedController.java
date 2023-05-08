@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AccessDeniedController {
 
-	@GetMapping("/error/userRestrictedPage")
+	@GetMapping("/userRestrictedPage")
 	public String getAccessDenied() {
 		return "userRestrictedPage";
 	}
