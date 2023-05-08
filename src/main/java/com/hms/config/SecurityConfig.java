@@ -12,9 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
 
-import com.hms.entities.CustomAccessDeniedHandler;
 import com.hms.exceptions.MyAuthenticationFailureHandler;
 import com.hms.services.UserServiceImpl;
 
@@ -38,14 +36,14 @@ public class SecurityConfig extends WebSecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((athReqs) -> athReqs.requestMatchers("/signin**", "/register**", "/about/**",
-				"/js/**", "/css/**", "/img/**", "/resources/**","/static/**","/userRestrictedPage.html","**.jpg").permitAll()
+				"/js/**", "/css/**", "/img/**", "/resources/**","/static/**","**.jpg","/userRestrictedPage**").permitAll()
 				.requestMatchers("/home","/profile","/search","/bookings/**","/manage/users/inactivateUser").authenticated()
 				 .requestMatchers("/manage/**").hasAuthority("ADMIN") 
 				).httpBasic().disable().formLogin()
 				.loginPage("/signin").loginProcessingUrl("/process-signin").defaultSuccessUrl("/home").permitAll()
 				.failureHandler(new MyAuthenticationFailureHandler()).and()
 				.authenticationManager(authManager(http)).csrf().disable()
-				/* .exceptionHandling().accessDeniedHandler(accessDeniedHandler()) */
+				.exceptionHandling().accessDeniedPage("/userRestrictedPage")
 				 ;
 		return http.build();
 	}
@@ -55,9 +53,4 @@ public class SecurityConfig extends WebSecurityConfiguration {
 		return new UserServiceImpl();
 	}
 
-	@Bean
-	public AccessDeniedHandler accessDeniedHandler(){
-	    return new CustomAccessDeniedHandler();
-	}
-	
 }
