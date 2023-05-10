@@ -24,7 +24,7 @@ public class CheckOutGreaterThanCheckinValidator
 			message = "Please select a Check-Out Date";
 			isValid = false;
 			property = "checkOut";
-		} else if (!search.getCheckIn().isAfter(now)) {
+		} else if (!(search.getCheckIn().isEqual(now) || search.getCheckIn().isAfter(now))) {
 			message = "Please select a Check-In Date of future";
 			isValid = false;
 			property = "checkIn";
