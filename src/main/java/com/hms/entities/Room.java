@@ -21,7 +21,7 @@ public class Room {
 
     @Id
     @Column(name = "room_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long roomId;
     
     @Column(name = "room_number")
